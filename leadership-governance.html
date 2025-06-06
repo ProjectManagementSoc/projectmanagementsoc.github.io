@@ -21,222 +21,226 @@ subtitle:
 
 <!-- Leadership info-->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PMI Student Club Team</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f5f7fa;
-      color: #333;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 60px 20px;
-    }
-
-    .team-head-text {
-      text-align: center;
-      font-size: 3em;
-      font-weight: 700;
-      margin-bottom: 50px;
-      color: #0A2647;
-    }
-
-    .responsive-container-block {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-    }
-
-    .team-image-wrapper {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin-bottom: 20px;
-      border: 3px solid #0A2647;
-    }
-
-    .team-member-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .name {
-      font-size: 1.25em;
-      font-weight: 600;
-      color: #0A2647;
-      margin: 10px 0 5px;
-    }
-
-    .position {
-      font-size: 1em;
-      font-weight: 500;
-      color: #19A7CE;
-      margin-bottom: 10px;
-    }
-
-    .feature-text {
-      font-size: 0.95em;
-      color: #444;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .text-blk {
-      margin: 0 0 8px;
-      text-align: center;
-    }
-
-    a {
-      color: #19A7CE;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .team-head-text {
-        font-size: 2em;
-      }
-
-      .card {
-        padding: 16px;
-      }
-
-      .feature-text {
-        font-size: 0.9em;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <p class="team-head-text">Our Team</p>
-    <div class="responsive-container-block">
-
-      <!-- Team Members -->
-      <div class="card">
-        <div class="team-image-wrapper">
-          <img loading="lazy" class="team-member-image" src="assets/group-png/rishigupta.jpg" alt="Rishi Gupta">
-        </div>
-        <p class="text-blk name">Rishi Gupta</p>
-        <p class="text-blk position">President</p>
-        <p class="text-blk feature-text">MBA in Project Management at DBS. 6+ years leading cross-functional teams. Founder of the PMI Student Club. Focused on certifications, networking, and career growth.</p>
-        <p class="text-blk">ID: 20048110<br>Email: <a href="mailto:20048110@mydbs.ie">20048110@mydbs.ie</a></p>
+<!-- team.html (or inside your Jekyll layout/page) -->
+<div class="team-container">
+  <p class="team-heading">Our Team</p>
+  <div class="team-grid">
+    <!-- Member 1: Rishi Gupta (President) -->
+    <div class="team-card">
+      <div class="team-image-wrapper">
+        <img src="{{ '/assets/group-png/rishigupta.jpg' | relative_url }}" alt="Rishi Gupta" loading="lazy" class="team-member-image" />
       </div>
-
-      <div class="card">
-        <div class="team-image-wrapper">
-          <img loading="lazy" class="team-member-image" src="assets/group-png/tanyazubrzycki.jpg" alt="Tanya Zubrzycki">
-        </div>
-        <p class="text-blk name">Tanya Zubrzycki</p>
-        <p class="text-blk position">Faculty Mentor</p>
-        <p class="text-blk feature-text">Assistant Academic Director at DBS. Specialist in education reform and lifelong learning. Bridges club efforts with PMI values and strategy.</p>
+      <p class="name">Rishi Gupta</p>
+      <p class="position">President</p>
+      <p class="feature-text">
+        Experienced Project Manager with 6+ years leading cross-functional teams across product lifecycles. Currently pursuing an MBA in Project Management at DBS and Founder of this PMI Student Club. Brings strategic direction, structure, and focus on certifications and career advancement. Aims to foster networking, peer learning, and host Industry Insight Sessions with professionals.
+      </p>
+      <div class="social-icons">
+        <a href="mailto:20048110@mydbs.ie" target="_blank" aria-label="Email Rishi Gupta">📧</a>
       </div>
+    </div>
 
-      <div class="card">
-        <div class="team-image-wrapper">
-          <img loading="lazy" class="team-member-image" src="assets/group-png/bhargavpatel.jpeg" alt="Bhargav Patel">
-        </div>
-        <p class="text-blk name">Bhargav Patel</p>
-        <p class="text-blk position">Vice-President</p>
-        <p class="text-blk feature-text">Quality Assurance expert with 7+ years in biopharma. Event planning and value alignment. Guides club strategy and fosters engagement.</p>
-        <p class="text-blk">ID: 20038572<br>Email: <a href="mailto:20038572@mydbs.ie">20038572@mydbs.ie</a></p>
+    <!-- Member 2: Tanya Zubrzycki (Faculty Mentor) -->
+    <div class="team-card">
+      <div class="team-image-wrapper">
+        <img src="{{ '/assets/group-png/tanyazubrzycki.jpg' | relative_url }}" alt="Tanya Zubrzycki" loading="lazy" class="team-member-image" />
       </div>
+      <p class="name">Tanya Zubrzycki</p>
+      <p class="position">Faculty Mentor</p>
+      <p class="feature-text">
+        Assistant Academic Director for Business and Law at DBS, specializing in higher education reform and lifelong learning; supports the club through PMI community engagement and strategic alignment with PMI’s mission and values.
+      </p>
+    </div>
 
-      <div class="card">
-        <div class="team-image-wrapper">
-          <img loading="lazy" class="team-member-image" src="assets/group-png/yashanilvig.jpeg" alt="Yash Anil Vig">
-        </div>
-        <p class="text-blk name">Yash Anil Vig</p>
-        <p class="text-blk position">VP of Finance</p>
-        <p class="text-blk feature-text">6 years in Accenture, KPMG, PwC. Handles budgets, transparency, and financial planning. Manages sponsorships and execution efficiency.</p>
-        <p class="text-blk">ID: 20067058<br>Email: <a href="mailto:20067058@mydbs.ie">20067058@mydbs.ie</a></p>
+    <!-- Member 3: Bhargav Patel (Vice-President) -->
+    <div class="team-card">
+      <div class="team-image-wrapper">
+        <img src="{{ '/assets/group-png/bhargavpatel.jpeg' | relative_url }}" alt="Bhargav Patel" loading="lazy" class="team-member-image" />
       </div>
-
-      <div class="card">
-        <div class="team-image-wrapper">
-          <img loading="lazy" class="team-member-image" src="assets/group-png/anupamkumar.jpeg" alt="Anupam Kumar">
-        </div>
-        <p class="text-blk name">Anupam Kumar</p>
-        <p class="text-blk position">Technical Manager</p>
-        <p class="text-blk feature-text">DevOps lead with 6+ years at NEC. Maintains digital presence, tools, and feedback systems. Brings innovation to club tech infrastructure.</p>
-        <p class="text-blk">ID: 20048300<br>Email: <a href="mailto:20048300@mydbs.ie">20048300@mydbs.ie</a></p>
+      <p class="name">Bhargav Patel</p>
+      <p class="position">Vice-President</p>
+      <p class="feature-text">
+        Quality Assurance expert with 7+ years in the biopharma industry across compliance and operations. Supports alignment with club values, event planning, and ongoing collaboration. Plays a key role in guiding club initiatives and ensuring smooth member engagement. Focuses on promoting a structured and goal-driven environment.
+      </p>
+      <div class="social-icons">
+        <a href="mailto:20038572@mydbs.ie" target="_blank" aria-label="Email Bhargav Patel">📧</a>
       </div>
+    </div>
 
-      <div class="card">
-        <div class="team-image-wrapper">
-          <img loading="lazy" class="team-member-image" src="assets/group-png/adebiyi.jpeg" alt="Adebiyi">
-        </div>
-        <p class="text-blk name">Adebiyi</p>
-        <p class="text-blk position">Program Coordinator</p>
-        <p class="text-blk feature-text">13+ years in project delivery and agile transformation. PMP, PSM-I certified. Plans and delivers value-focused sessions and activities.</p>
-        <p class="text-blk">ID: 20050123<br>Email: <a href="mailto:20050123@mydbs.ie">20050123@mydbs.ie</a></p>
+    <!-- Member 4: Yash Anil Vig (Vice-President of Finance) -->
+    <div class="team-card">
+      <div class="team-image-wrapper">
+        <img src="{{ '/assets/group-png/yashanilvig.jpeg' | relative_url }}" alt="Yash Anil Vig" loading="lazy" class="team-member-image" />
       </div>
-
-      <div class="card">
-        <div class="team-image-wrapper">
-          <img loading="lazy" class="team-member-image" src="assets/group-png/diniladixon.jpeg" alt="Dinila Dixon">
-        </div>
-        <p class="text-blk name">Dinila Dixon</p>
-        <p class="text-blk position">Event Coordinator (PR & Lead)</p>
-        <p class="text-blk feature-text">4+ years in HR and communications. Drives outreach, awareness, and connects students for impactful engagement.</p>
-        <p class="text-blk">ID: 20059925<br>Email: <a href="mailto:20059925@mydbs.ie">20059925@mydbs.ie</a></p>
+      <p class="name">Yash Anil Vig</p>
+      <p class="position">Vice-President of Finance</p>
+      <p class="feature-text">
+        Finance professional with 6 years of experience at Accenture, KPMG, and PwC. Expert in budgeting, financial tracking, and ensuring transparency in club operations. Leverages international finance exposure (India and Saudi) for robust financial management. Manages funding, sponsorships, and cost-effective execution of club activities.
+      </p>
+      <div class="social-icons">
+        <a href="mailto:20067058@mydbs.ie" target="_blank" aria-label="Email Yash Anil Vig">📧</a>
       </div>
+    </div>
 
-      <div class="card">
-        <div class="team-image-wrapper">
-          <img loading="lazy" class="team-member-image" src="assets/group-png/nehapalekar.jpeg" alt="Neha Palekar">
-        </div>
-        <p class="text-blk name">Neha Palekar</p>
-        <p class="text-blk position">Event Coordinator (Engagement)</p>
-        <p class="text-blk feature-text">9 years in fintech project management. Agile expert and student engagement leader. Drives Industry Insight sessions and community value.</p>
-        <p class="text-blk">ID: 20062408<br>Email: <a href="mailto:20062408@mydbs.ie">20062408@mydbs.ie</a></p>
+    <!-- Member 5: Anupam Kumar (Technical Manager) -->
+    <div class="team-card">
+      <div class="team-image-wrapper">
+        <img src="{{ '/assets/group-png/anupamkumar.jpeg' | relative_url }}" alt="Anupam Kumar" loading="lazy" class="team-member-image" />
       </div>
-
-      <div class="card">
-        <div class="team-image-wrapper">
-          <img loading="lazy" class="team-member-image" src="assets/group-png/shilpa.jpeg" alt="Shilpa">
-        </div>
-        <p class="text-blk name">Shilpa</p>
-        <p class="text-blk position">Event Coordinator (Media)</p>
-        <p class="text-blk feature-text">8+ years in IT and automotive. Data and system expert. Manages media, calendar updates, and digital communications for the club.</p>
-        <p class="text-blk">ID: 20067530<br>Email: <a href="mailto:20067530@mydbs.ie">20067530@mydbs.ie</a></p>
+      <p class="name">Anupam Kumar</p>
+      <p class="position">Technical Manager</p>
+      <p class="feature-text">
+        DevOps specialist with 6+ years at NEC, now a team leader with strong tech acumen. Supports the club’s digital presence through website, content, and tech support. Ensures efficient use of digital tools for communication, registration, and feedback. Adds innovation and technical excellence to the club’s infrastructure.
+      </p>
+      <div class="social-icons">
+        <a href="mailto:20048300@mydbs.ie" target="_blank" aria-label="Email Anupam Kumar">📧</a>
       </div>
+    </div>
 
+    <!-- Member 6: Adebiyi (Program Co-Ordinator) -->
+    <div class="team-card">
+      <div class="team-image-wrapper">
+        <img src="{{ '/assets/group-png/adebiyi.jpeg' | relative_url }}" alt="Adebiyi" loading="lazy" class="team-member-image" />
+      </div>
+      <p class="name">Adebiyi</p>
+      <p class="position">Program Co-Ordinator</p>
+      <p class="feature-text">
+        13+ years of leadership in project delivery, facilities, and agile transformation. PMP, PSM-I certified, with experience in regulatory bodies and enterprise systems. Drives program creation, structure, and member-focused activities. Plans and oversees execution of specialized sessions to share real-world PM expertise.
+      </p>
+      <div class="social-icons">
+        <a href="mailto:20050123@mydbs.ie" target="_blank" aria-label="Email Adebiyi">📧</a>
+      </div>
+    </div>
+
+    <!-- Member 7: Dinila Dixon (Event Co-Ordinator PR & Lead) -->
+    <div class="team-card">
+      <div class="team-image-wrapper">
+        <img src="{{ '/assets/group-png/diniladixon.jpeg' | relative_url }}" alt="Dinila Dixon" loading="lazy" class="team-member-image" />
+      </div>
+      <p class="name">Dinila Dixon</p>
+      <p class="position">Event Co-Ordinator (PR & Lead)</p>
+      <p class="feature-text">
+        HR professional with 4+ years’ experience across diverse industries. Specializes in outreach, communications, and maintaining a dynamic student interface. Promotes club awareness across streams and builds a vibrant, inclusive community. Drives publicity and connects students with meaningful networking opportunities.
+      </p>
+      <div class="social-icons">
+        <a href="mailto:20059925@mydbs.ie" target="_blank" aria-label="Email Dinila Dixon">📧</a>
+      </div>
+    </div>
+
+    <!-- Member 8: Neha Palekar (Event Co-Ordinator Engagement) -->
+    <div class="team-card">
+      <div class="team-image-wrapper">
+        <img src="{{ '/assets/group-png/nehapalekar.jpeg' | relative_url }}" alt="Neha Palekar" loading="lazy" class="team-member-image" />
+      </div>
+      <p class="name">Neha Palekar</p>
+      <p class="position">Event Co-Ordinator (Engagement)</p>
+      <p class="feature-text">
+        Project Manager with 9 years in fintech, managing digital banking and transformation projects. Expert in Agile, Scrum, stakeholder coordination, and client-centric delivery. Leverages experience in IT project lifecycles and regulatory compliance. Engages students, aligns club vision with member expectations, and leads Industry Insight Sessions.
+      </p>
+      <div class="social-icons">
+        <a href="mailto:20062408@mydbs.ie" target="_blank" aria-label="Email Neha Palekar">📧</a>
+      </div>
+    </div>
+
+    <!-- Member 9: Shilpa (Event Co-Ordinator Media) -->
+    <div class="team-card">
+      <div class="team-image-wrapper">
+        <img src="{{ '/assets/group-png/shilpa.jpeg' | relative_url }}" alt="Shilpa" loading="lazy" class="team-member-image" />
+      </div>
+      <p class="name">Shilpa</p>
+      <p class="position">Event Co-Ordinator Media</p>
+      <p class="feature-text">
+        An experienced IT Analyst with 8+ years in the automotive industry. Expert in data management, system analysis, and project delivery. Will manage the event calendar, media communications, and club updates.
+      </p>
+      <div class="social-icons">
+        <a href="mailto:20067530@mydbs.ie" target="_blank" aria-label="Email Shilpa">📧</a>
+      </div>
     </div>
   </div>
-</body>
-</html>
+</div>
+
+<style>
+  /* Container and heading */
+  .team-container {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .team-heading {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Grid layout */
+  .team-grid {
+    display: grid;
+    gap: 2.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  /* Card styling */
+  .team-card {
+    background: linear-gradient(145deg, #f0f4ff, #d9e4ff);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(25, 45, 90, 0.1);
+    padding: 1.8rem 1.5rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .team-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(25, 45, 90, 0.25);
+  }
+
+  /* Image */
+  .team-image-wrapper {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.3rem;
+    flex-shrink: 0;
+  }
+  .team-member-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+  }
+
+  /* Text */
+  .name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 0.3rem 0;
+    text-align: center;
+  }
+  .position {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #3a3a6e;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+  .feature-text {
+    font-size: 0.95rem;
+    color: #555a7b;
+    line-height: 1.5;
+    text-align: center;
+    flex
+
 
 
 

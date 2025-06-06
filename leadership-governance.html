@@ -5,23 +5,20 @@ subtitle:
 ---
 
 <style>
-  .pdf-container {
-    position: relative;
+  iframe {
+    display: block;
     width: 100%;
-    height: calc(100vh - 350px); /* Adjust depending on your header/footer height */
-    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    border: none;
   }
 
-  .pdf-container iframe {
-    width: 150%;
-    height: 150%;
-    border: none;
+  /* Optional: Prevent extra scroll if layout has padding/margins */
+  body {
+    overflow-x: hidden;
   }
 </style>
 
-<div class="pdf-container">
-  <iframe
-    src="{{ '/assets/pdf/Org-Chart-Whiteboard.pdf#toolbar=0' | relative_url }}"
-    title="Leadership Org Chart PDF"
-  ></iframe>
-</div>
+<iframe
+  src="{{ '/assets/pdf/Org-Chart-Whiteboard.pdf#toolbar=0' | relative_url }}"
+  title="Leadership Org Chart PDF"
+></iframe>

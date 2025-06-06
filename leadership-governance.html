@@ -21,110 +21,85 @@ subtitle:
 
 <!-- Leadership info-->
 
-<section class="bg-gray-100 h-screen overflow-y-scroll snap-y snap-mandatory">
-  <!-- Container: full height viewport, vertical scroll, snap -->
+<section class="bg-gray-100 h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+  <!-- Scroll container: full viewport height, vertical scroll, snap -->
 
-  <!-- Each team member tile -->
-  <div class="h-screen snap-start flex flex-col items-center justify-center text-center p-6 bg-white shadow-md mx-4 rounded-2xl">
-
-    <img src="{{ 'assets/group-png/rishigupta.jpg' | relative_url }}" alt="Rishi Gupta" class="w-48 h-48 rounded-full object-cover mb-6 flex-shrink-0" />
-
-    <h3 class="text-3xl font-bold text-indigo-600 mb-2">President – Rishi Gupta</h3>
-    <p class="text-lg text-gray-500 mb-1">Student ID: 20048110</p>
-    <p class="text-lg text-gray-500 mb-4">📧 20048110@mydbs.ie</p>
-    <p class="max-w-3xl text-gray-700 text-base leading-relaxed">
+  <!-- Individual Team Member Card -->
+  <div class="h-screen snap-start flex flex-col items-center justify-center p-8 bg-white rounded-3xl shadow-xl mx-8 my-8 max-w-4xl mx-auto">
+    
+    <div class="w-48 h-48 rounded-full overflow-hidden mb-8 shadow-lg border-4 border-indigo-500">
+      <img
+        src="{{ 'assets/group-png/rishigupta.jpg' | relative_url }}"
+        alt="Rishi Gupta"
+        class="w-full h-full object-cover object-center"
+        loading="lazy"
+      />
+    </div>
+    
+    <h3 class="text-4xl font-extrabold text-indigo-600 mb-2">President – Rishi Gupta</h3>
+    <p class="text-lg text-gray-600 mb-1">Student ID: 20048110</p>
+    <p class="text-lg text-gray-600 mb-6">📧 20048110@mydbs.ie</p>
+    <p class="max-w-3xl text-gray-700 text-base leading-relaxed tracking-wide">
       Experienced PM with 6+ years in product teams. MBA at DBS. Founder of the club, focused on certification and networking events.
     </p>
   </div>
 
-  <div class="h-screen snap-start flex flex-col items-center justify-center text-center p-6 bg-white shadow-md mx-4 rounded-2xl">
-    <img src="{{ 'assets/group-png/tanyazubrzycki.jpg' | relative_url }}" alt="Tanya Zubrzycki" class="w-48 h-48 rounded-full object-cover mb-6 flex-shrink-0" />
-
-    <h3 class="text-3xl font-bold text-indigo-600 mb-2">Faculty Mentor – Tanya Zubrzycki</h3>
-    <p class="text-lg text-gray-500 mb-4">Assistant Academic Director, DBS</p>
-    <p class="max-w-3xl text-gray-700 text-base leading-relaxed">
+  <div class="h-screen snap-start flex flex-col items-center justify-center p-8 bg-white rounded-3xl shadow-xl mx-8 my-8 max-w-4xl mx-auto">
+    <div class="w-48 h-48 rounded-full overflow-hidden mb-8 shadow-lg border-4 border-indigo-500">
+      <img
+        src="{{ 'assets/group-png/tanyazubrzycki.jpg' | relative_url }}"
+        alt="Tanya Zubrzycki"
+        class="w-full h-full object-cover object-center"
+        loading="lazy"
+      />
+    </div>
+    
+    <h3 class="text-4xl font-extrabold text-indigo-600 mb-2">Faculty Mentor – Tanya Zubrzycki</h3>
+    <p class="text-lg text-gray-600 mb-6">Assistant Academic Director, DBS</p>
+    <p class="max-w-3xl text-gray-700 text-base leading-relaxed tracking-wide">
       Specialist in higher education reform. Supports club strategy and PMI alignment.
     </p>
   </div>
 
-  <div class="h-screen snap-start flex flex-col items-center justify-center text-center p-6 bg-white shadow-md mx-4 rounded-2xl">
-    <img src="{{ 'assets/group-png/bhargavpatel.jpeg' | relative_url }}" alt="Bhargav Patel" class="w-48 h-48 rounded-full object-cover mb-6 flex-shrink-0" />
+  <div class="h-screen snap-start flex flex-col items-center justify-center p-8 bg-white rounded-3xl shadow-xl mx-8 my-8 max-w-4xl mx-auto">
+    <div class="w-48 h-48 rounded-full overflow-hidden mb-8 shadow-lg border-4 border-indigo-500">
+      <img
+        src="{{ 'assets/group-png/bhargavpatel.jpeg' | relative_url }}"
+        alt="Bhargav Patel"
+        class="w-full h-full object-cover object-center"
+        loading="lazy"
+      />
+    </div>
 
-    <h3 class="text-3xl font-bold text-indigo-600 mb-2">Vice-President – Bhargav Patel</h3>
-    <p class="text-lg text-gray-500 mb-1">Student ID: 20038572</p>
-    <p class="text-lg text-gray-500 mb-4">📧 20038572@mydbs.ie</p>
-    <p class="max-w-3xl text-gray-700 text-base leading-relaxed">
+    <h3 class="text-4xl font-extrabold text-indigo-600 mb-2">Vice-President – Bhargav Patel</h3>
+    <p class="text-lg text-gray-600 mb-1">Student ID: 20038572</p>
+    <p class="text-lg text-gray-600 mb-6">📧 20038572@mydbs.ie</p>
+    <p class="max-w-3xl text-gray-700 text-base leading-relaxed tracking-wide">
       7+ years in biopharma QA. Drives alignment, structure, and member engagement.
     </p>
   </div>
 
-  <!-- Repeat the same structure for other members -->
+  <!-- Repeat the pattern for remaining members -->
 
-  <div class="h-screen snap-start flex flex-col items-center justify-center text-center p-6 bg-white shadow-md mx-4 rounded-2xl">
-    <img src="{{ 'assets/group-png/yashanilvig.jpeg' | relative_url }}" alt="Yash Anil Vig" class="w-48 h-48 rounded-full object-cover mb-6 flex-shrink-0" />
+  <div class="h-screen snap-start flex flex-col items-center justify-center p-8 bg-white rounded-3xl shadow-xl mx-8 my-8 max-w-4xl mx-auto">
+    <div class="w-48 h-48 rounded-full overflow-hidden mb-8 shadow-lg border-4 border-indigo-500">
+      <img
+        src="{{ 'assets/group-png/yashanilvig.jpeg' | relative_url }}"
+        alt="Yash Anil Vig"
+        class="w-full h-full object-cover object-center"
+        loading="lazy"
+      />
+    </div>
 
-    <h3 class="text-3xl font-bold text-indigo-600 mb-2">VP of Finance – Yash Anil Vig</h3>
-    <p class="text-lg text-gray-500 mb-1">Student ID: 20067058</p>
-    <p class="text-lg text-gray-500 mb-4">📧 20067058@mydbs.ie</p>
-    <p class="max-w-3xl text-gray-700 text-base leading-relaxed">
+    <h3 class="text-4xl font-extrabold text-indigo-600 mb-2">VP of Finance – Yash Anil Vig</h3>
+    <p class="text-lg text-gray-600 mb-1">Student ID: 20067058</p>
+    <p class="text-lg text-gray-600 mb-6">📧 20067058@mydbs.ie</p>
+    <p class="max-w-3xl text-gray-700 text-base leading-relaxed tracking-wide">
       Finance pro with 6 years at Accenture/KPMG/PwC. Leads budgeting and sponsorships.
     </p>
   </div>
 
-  <div class="h-screen snap-start flex flex-col items-center justify-center text-center p-6 bg-white shadow-md mx-4 rounded-2xl">
-    <img src="{{ 'assets/group-png/anupamkumar.jpeg' | relative_url }}" alt="Anupam Kumar" class="w-48 h-48 rounded-full object-cover mb-6 flex-shrink-0" />
-
-    <h3 class="text-3xl font-bold text-indigo-600 mb-2">Technical Manager – Anupam Kumar</h3>
-    <p class="text-lg text-gray-500 mb-1">Student ID: 20048300</p>
-    <p class="text-lg text-gray-500 mb-4">📧 20048300@mydbs.ie</p>
-    <p class="max-w-3xl text-gray-700 text-base leading-relaxed">
-      DevOps leader with 6+ years at NEC. Manages web, content, and digital tools.
-    </p>
-  </div>
-
-  <div class="h-screen snap-start flex flex-col items-center justify-center text-center p-6 bg-white shadow-md mx-4 rounded-2xl">
-    <img src="{{ 'assets/group-png/adebiyi.jpeg' | relative_url }}" alt="Adebiyi" class="w-48 h-48 rounded-full object-cover mb-6 flex-shrink-0" />
-
-    <h3 class="text-3xl font-bold text-indigo-600 mb-2">Program Co-Ordinator – Adebiyi</h3>
-    <p class="text-lg text-gray-500 mb-1">Student ID: 20050123</p>
-    <p class="text-lg text-gray-500 mb-4">📧 20050123@mydbs.ie</p>
-    <p class="max-w-3xl text-gray-700 text-base leading-relaxed">
-      13+ years in project delivery, PMP, PSM-I certified. Designs and manages programs.
-    </p>
-  </div>
-
-  <div class="h-screen snap-start flex flex-col items-center justify-center text-center p-6 bg-white shadow-md mx-4 rounded-2xl">
-    <img src="{{ 'assets/group-png/diniladixon.jpeg' | relative_url }}" alt="Dinila Dixon" class="w-48 h-48 rounded-full object-cover mb-6 flex-shrink-0" />
-
-    <h3 class="text-3xl font-bold text-indigo-600 mb-2">Event Lead – Dinila Dixon</h3>
-    <p class="text-lg text-gray-500 mb-1">Student ID: 20059925</p>
-    <p class="text-lg text-gray-500 mb-4">📧 20059925@mydbs.ie</p>
-    <p class="max-w-3xl text-gray-700 text-base leading-relaxed">
-      4+ years in HR. Focuses on outreach, PR, and building club visibility.
-    </p>
-  </div>
-
-  <div class="h-screen snap-start flex flex-col items-center justify-center text-center p-6 bg-white shadow-md mx-4 rounded-2xl">
-    <img src="{{ 'assets/group-png/nehapalekar.jpeg' | relative_url }}" alt="Neha Palekar" class="w-48 h-48 rounded-full object-cover mb-6 flex-shrink-0" />
-
-    <h3 class="text-3xl font-bold text-indigo-600 mb-2">Event Coordinator – Neha Palekar</h3>
-    <p class="text-lg text-gray-500 mb-1">Student ID: 20062408</p>
-    <p class="text-lg text-gray-500 mb-4">📧 20062408@mydbs.ie</p>
-    <p class="max-w-3xl text-gray-700 text-base leading-relaxed">
-      9 years in fintech. Agile expert leading insight sessions and student engagement.
-    </p>
-  </div>
-
-  <div class="h-screen snap-start flex flex-col items-center justify-center text-center p-6 bg-white shadow-md mx-4 rounded-2xl">
-    <img src="{{ 'assets/group-png/shilpa.jpeg' | relative_url }}" alt="Shilpa" class="w-48 h-48 rounded-full object-cover mb-6 flex-shrink-0" />
-
-    <h3 class="text-3xl font-bold text-indigo-600 mb-2">Media Coordinator – Shilpa</h3>
-    <p class="text-lg text-gray-500 mb-1">Student ID: 20067530</p>
-    <p class="text-lg text-gray-500 mb-4">📧 20067530@mydbs.ie</p>
-    <p class="max-w-3xl text-gray-700 text-base leading-relaxed">
-      IT Analyst with 8+ years in automotive. Manages media, updates, and events.
-    </p>
-  </div>
+  <!-- Add more members in the same way -->
 
 </section>
 

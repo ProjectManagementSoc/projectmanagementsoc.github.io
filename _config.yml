@@ -20,11 +20,12 @@ author: All Rights Reserved
 ###############################################
 
 navbar-links:
-  About Us: "aboutme"
+  Home: "index"
+  Events: "event-calendar"
   Resources:
     - Project Management Society : "https://www.pmi.org/"
-  Home: "index"
   Meet the Leaders: "leadership-governance"
+  About Us: "aboutme"
   #Author's home: "https://deanattali.com"
 
 ################

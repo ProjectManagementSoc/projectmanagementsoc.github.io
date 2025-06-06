@@ -1,24 +1,35 @@
 ---
-layout: page
-title: 
-subtitle: 
+layout: none
+title:
 ---
 
-<style>
-  iframe {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    border: none;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leadership</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
 
-  /* Optional: Prevent extra scroll if layout has padding/margins */
-  body {
-    overflow-x: hidden;
-  }
-</style>
-
-<iframe
-  src="{{ '/assets/pdf/Org-Chart-Whiteboard.pdf#toolbar=0' | relative_url }}"
-  title="Leadership Org Chart PDF"
-></iframe>
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <iframe
+    src="{{ '/assets/pdf/Org-Chart-Whiteboard.pdf#toolbar=0' | relative_url }}"
+    title="Leadership Org Chart PDF"
+  ></iframe>
+</body>
+</html>

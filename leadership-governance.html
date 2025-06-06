@@ -5,15 +5,15 @@ subtitle:
 ---
 
 <style>
-  /* Make iframe fill the visible content area */
   iframe {
     width: 100%;
-    height: 80vh; /* Adjust height to fit your layout */
+    /* Make iframe taller than typical PDF height at 150% zoom */
+    height: 120vh;  /* 120% of viewport height */
     border: none;
   }
 </style>
 
 <iframe
   src="{{ '/assets/pdf/Org-Chart-Whiteboard.pdf#toolbar=0&zoom=150' | relative_url }}"
-  title="Embedded Zoomed PDF"
+  title="Embedded Zoomed PDF with Extra Space"
 ></iframe>

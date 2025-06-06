@@ -23,6 +23,8 @@ navbar-links:
   About Us: "aboutme"
   Resources:
     - Project Management Society : "https://www.pmi.org/"
+  Home: "index"
+  Leaders: leadership-governance"
   #Author's home: "https://deanattali.com"
 
 ################

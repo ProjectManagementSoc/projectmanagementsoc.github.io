@@ -1,0 +1,25 @@
+/* style.css */
+
+.team-head-text {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #4f46e5, #3b82f6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    user-select: none;
+    transition: transform 0.3s ease;
+    cursor: default;
+  }
+  
+  .team-head-text:hover {
+    transform: scale(1.05);
+    background-position: 100% 0;
+  }
+  
+  /* Add any other custom styles for your site here */
+  

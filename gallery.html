@@ -1,0 +1,74 @@
+---
+layout: default
+title: 
+subtitle: 
+---
+
+---
+layout: default
+title: Gallery
+---
+---
+layout: default
+title: Gallery
+---
+
+<div class="container mx-auto px-4 py-12">
+  <h1 class="text-4xl font-bold mb-10 text-center">Event Gallery</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    {% assign events = 
+      "21 May Club event,21May_club_event;
+       27 May Bingo Night,27May_bingo_night;
+       4 June Panel discussion,4June_panel_discussion;
+       17 June Movie Night,17June_movie_night;
+       25 June Beach Party,25June_beach_party" | split: ";" %}
+
+    {% for item in events %}
+      {% assign parts = item | split: "," %}
+      {% assign title = parts[0] %}
+      {% assign folder = parts[1] %}
+      <div class="bg-white shadow-xl rounded-2xl overflow-hidden hover:shadow-2xl transition">
+        <div 
+          class="cursor-pointer"
+          onclick="openGallery('{{ folder }}')"
+        >
+          <div class="h-48 bg-gradient-to-br from-blue-300 to-purple-400 flex items-center justify-center text-white text-xl font-semibold tracking-wide text-center">
+            {{ title }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Lightbox Popup -->
+<div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center hidden z-50">
+  <div class="relative max-w-6xl w-full px-4">
+    <button onclick="closeGallery()" class="absolute top-4 right-4 text-white text-3xl font-bold">&times;</button>
+    <div id="lightboxImages" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-16 overflow-y-auto max-h-[80vh]"></div>
+  </div>
+</div>
+
+<script>
+  function openGallery(folder) {
+    const lightbox = document.getElementById('lightbox');
+    const container = document.getElementById('lightboxImages');
+    container.innerHTML = '';
+
+    for (let i = 1; i <= 20; i++) { // adjust max number as needed
+      const img = document.createElement('img');
+      img.src = `/assets/gallery/${folder}/${i}.jpg`;
+      img.className = "w-full h-auto rounded-lg shadow-md";
+      img.onerror = function () { this.remove(); };
+      container.appendChild(img);
+    }
+
+    lightbox.classList.remove('hidden');
+  }
+
+  function closeGallery() {
+    document.getElementById('lightbox').classList.add('hidden');
+  }
+</script>
+

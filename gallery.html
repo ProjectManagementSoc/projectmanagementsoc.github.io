@@ -1,6 +1,5 @@
 ---
 layout: default
-title: Gallery
 ---
 
 <div class="gallery-container">
@@ -207,8 +206,32 @@ title: Gallery
     }
   }
 </style>
-
 <script>
+  // Build the events object as a JSON string with Liquid, then parse it in JS
+  const events = JSON.parse(`{
+    {%- assign gallery_prefix = 'assets/gallery/' -%}
+    {%- assign event_names = "" | split: "" -%}
+    {%- for file in site.static_files -%}
+      {%- if file.path contains gallery_prefix -%}
+        {%- assign parts = file.path | split: '/' -%}
+        {%- assign event_name = parts[3] -%}
+        {%- unless event_names contains event_name -%}
+          {%- assign event_names = event_names | push: event_name -%}
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- for event in event_names -%}
+      {%- assign count = 0 -%}
+      {%- for file in site.static_files -%}
+        {%- if file.path contains gallery_prefix and file.path contains event -%}
+          {%- assign count = count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      "{{ event }}": {{ count }}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  }`);
+</script>
+
   document.addEventListener('DOMContentLoaded', () => {
     const galleryCards = document.querySelectorAll('.gallery-card');
     const popupOverlay = document.getElementById('popup-overlay');
@@ -216,14 +239,6 @@ title: Gallery
     const popupClose = document.getElementById('popup-close');
     const popupPrev = document.getElementById('popup-prev');
     const popupNext = document.getElementById('popup-next');
-
-    // Define how many images each event has (adjust as needed)
-    const events = {
-      "21May_club_event": 11,
-      "27May_bingo_night": 5,
-      "4June_panel_discussion": 3,
-      "17June_movie_night": 1
-    };
 
     let currentEvent = null;
     let currentIndex = 1;

@@ -5,244 +5,380 @@ title:
 subtitle: 
 ---
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Project Management Club - DBS</title>
+
+<!-- FontAwesome CDN for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
 <style>
-    /* Container for speech and calendar side by side */
+  /* Reset & base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f9ff;
+    color: #2b2b40;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 {
+    color: #1a1a2e;
+    margin-top: 0;
+  }
+
+  a {
+    color: #2f52e0;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Container max width & padding */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 3rem;
+  }
+
+  /* Top section: Speech + Calendar side by side */
+  .top-section {
+    display: flex;
+    gap: 2rem;
+    margin: 3rem 0 4rem;
+  }
+
+  /* President speech card */
+  .president-speech-card {
+    flex: 2;
+    background: linear-gradient(135deg, #d2e0ff, #f0f6ff);
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(30, 60, 120, 0.12);
+    padding: 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .speech-header h2 {
+    font-weight: 700;
+    font-size: 2.4rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .pm-tag {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4158d0;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.3rem;
+    display: inline-block;
+  }
+
+  .speech-body p {
+    font-size: 1.1rem;
+    color: #3e4062;
+    margin-bottom: 1.2rem;
+  }
+
+  .president-signature {
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.15rem;
+    margin-top: auto;
+    color: #1a1a2e;
+  }
+
+  /* Calendar card */
+  .event-calendar-container {
+    flex: 1;
+    background: linear-gradient(135deg, #d2e0ff, #f0f6ff);
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(30, 60, 120, 0.12);
+    padding: 1.8rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .event-calendar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 1rem;
+  }
+
+  .event-calendar-header i {
+    color: #4158d0;
+  }
+
+  .badge-info {
+    background-color: #4158d0;
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 14px;
+    font-weight: 600;
+  }
+
+  .calendar-widget iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+    border-radius: 12px;
+  }
+
+  .calendar-footer {
+    margin-top: auto;
+    text-align: center;
+  }
+
+  .calendar-footer a {
+    font-size: 0.9rem;
+    padding: 0.45rem 1.2rem;
+    border-radius: 26px;
+    border: 2px solid #4158d0;
+    color: #4158d0;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .calendar-footer a:hover {
+    background-color: #4158d0;
+    color: white;
+  }
+
+  /* Main content below - About, Mission, Values */
+  .main-content {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 3.5rem;
+    box-shadow: 0 12px 30px rgba(30, 60, 120, 0.06);
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    color: #1a1a2e;
+    border-bottom: 3px solid #4158d0;
+    display: inline-block;
+    padding-bottom: 0.3rem;
+  }
+
+  /* About text */
+  .about-text {
+    font-size: 1.1rem;
+    color: #3e4062;
+    max-width: 900px;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  /* Mission + Core Values section: flex 2 columns on desktop */
+  .info-grid {
+    display: flex;
+    gap: 3.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .info-block {
+    flex: 1;
+    min-width: 280px;
+    background: #f0f6ff;
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(65, 88, 208, 0.15);
+  }
+
+  .info-block h3 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+    color: #2a2a47;
+  }
+
+  .info-block ul {
+    padding-left: 1.2rem;
+    color: #404366;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  .info-block ul li {
+    margin-bottom: 0.85rem;
+  }
+
+  /* Highlighted bullet titles */
+  .info-block ul li strong {
+    color: #4158d0;
+  }
+
+  /* Responsive styling */
+  @media (max-width: 900px) {
     .top-section {
-      display: flex;
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      flex-direction: column;
+      margin: 2rem 0 3rem;
     }
-  
-    /* President speech card styling */
+
     .president-speech-card {
-      flex: 2;
-      background: linear-gradient(145deg, #f0f4ff, #d9e4ff);
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(25, 45, 90, 0.1);
-      padding: 2rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      position: relative;
+      padding: 2rem 2rem 2rem;
+      margin-bottom: 2rem;
     }
-  
-    .speech-header h2 {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #222;
-    }
-  
-    .pm-tag {
-      display: inline-block;
-      margin-top: 0.2rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #3a3a6e;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-  
-    .speech-body {
-      margin-top: 1.2rem;
-      font-size: 1rem;
-      color: #555a7b;
-      line-height: 1.6;
-    }
-  
-    .president-signature {
-      margin-top: 1.5rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      font-style: italic;
-    }
-  
-    /* Calendar container smaller but balanced */
+
     .event-calendar-container {
-      flex: 1;
-      background: linear-gradient(145deg, #f0f4ff, #d9e4ff);
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(25, 45, 90, 0.1);
-      padding: 1.5rem 1.8rem;
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .event-calendar-header {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #222;
-      margin-bottom: 1rem;
-    }
-  
-    .event-calendar-header i {
-      color: #3a3a6e;
-    }
-  
-    .badge-info {
-      background-color: #3a3a6e;
-      color: white;
-      font-size: 0.75rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-  
-    .calendar-widget iframe {
       width: 100%;
-      height: 280px; /* smaller height */
-      border: none;
-      border-radius: 12px;
+      padding: 1.5rem 1.8rem 1.8rem;
+      margin-bottom: 2rem;
     }
-  
-    .calendar-footer {
-      margin-top: auto;
-      text-align: center;
+
+    .calendar-widget iframe {
+      height: 320px;
     }
-  
-    .calendar-footer a {
-      font-size: 0.85rem;
-      padding: 0.4rem 1rem;
-      border-radius: 24px;
-      border: 1.8px solid #3a3a6e;
-      color: #3a3a6e;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: background-color 0.25s ease, color 0.25s ease;
+
+    .main-content {
+      padding: 2rem 2rem 2.5rem;
     }
-  
-    .calendar-footer a:hover {
-      background-color: #3a3a6e;
-      color: white;
+
+    .info-grid {
+      flex-direction: column;
+      gap: 2rem;
     }
-  
-    /* Responsive adjustments */
-    @media (max-width: 900px) {
-      .top-section {
-        flex-direction: column;
-        padding: 0 1rem 2rem;
-      }
-  
-      .president-speech-card {
-        padding: 1.8rem 1.5rem;
-        margin-bottom: 2rem;
-      }
-  
-      .speech-header h2 {
-        font-size: 1.7rem;
-      }
-  
-      .pm-tag {
-        font-size: 0.85rem;
-      }
-  
-      .speech-body {
-        font-size: 0.95rem;
-        line-height: 1.5;
-      }
-  
-      .event-calendar-container {
-        width: 100%;
-        height: auto;
-        padding: 1.5rem 1.8rem;
-        margin-bottom: 2rem;
-      }
-  
-      .calendar-widget iframe {
-        height: 320px;
-      }
-  
-      .event-calendar-header {
-        font-size: 1.2rem;
-        gap: 0.4rem;
-      }
-  
-      .badge-info {
-        font-size: 0.7rem;
-        padding: 0.15rem 0.5rem;
-      }
-  
-      .calendar-footer a {
-        font-size: 0.8rem;
-        padding: 0.35rem 0.9rem;
-      }
+  }
+
+  @media (max-width: 480px) {
+    .speech-header h2 {
+      font-size: 1.8rem;
     }
-  
-    @media (max-width: 480px) {
-      .speech-header h2 {
-        font-size: 1.5rem;
-      }
-  
-      .pm-tag {
-        font-size: 0.8rem;
-      }
-  
-      .speech-body {
-        font-size: 0.9rem;
-      }
-  
-      .calendar-widget iframe {
-        height: 280px;
-      }
-  
-      .event-calendar-header {
-        font-size: 1.1rem;
-      }
-  
-      .calendar-footer a {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.8rem;
-      }
+
+    .pm-tag {
+      font-size: 0.9rem;
     }
-  </style>
-  
-  <section class="top-section" aria-label="President speech and upcoming events calendar">
-  
-    <!-- President's speech card -->
-    <section class="card president-speech-card" aria-label="President’s Speech">
-      <div class="speech-header">
-        <h2>President’s Speech</h2>
-        <span class="pm-tag">Project Management Society</span>
-      </div>
-      <div class="speech-body">
-        <p>
-          Welcome to the <strong>Project Management Society</strong>! As your president, I’m excited to lead a community dedicated to innovation, collaboration, and excellence. Together, we’ll turn visions into reality and master the art of delivering impactful projects.
-        </p>
-        <p>
-          Let’s challenge the status quo, learn fearlessly, and make this journey unforgettable.
-        </p>
-        <p class="president-signature">— Rishi Gupta, President</p>
-      </div>
+
+    .speech-body p {
+      font-size: 1rem;
+    }
+
+    .calendar-widget iframe {
+      height: 280px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .info-block h3 {
+      font-size: 1.3rem;
+    }
+
+    .info-block ul {
+      font-size: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <main class="container" role="main" aria-label="Project Management Club homepage">
+
+    <!-- Top section with speech + calendar -->
+    <section class="top-section" aria-label="President speech and upcoming events calendar">
+
+      <!-- President's speech card -->
+      <article class="card president-speech-card" aria-labelledby="president-speech-title">
+        <header class="speech-header">
+          <h2 id="president-speech-title">President’s Speech</h2>
+          <span class="pm-tag">Project Management Society</span>
+        </header>
+        <section class="speech-body">
+          <p>
+            Welcome to the <strong>Project Management Society</strong>! As your president, I’m excited to lead a community dedicated to innovation, collaboration, and excellence. Together, we’ll turn visions into reality and master the art of delivering impactful projects.
+          </p>
+          <p>
+            Let’s challenge the status quo, learn fearlessly, and make this journey unforgettable.
+          </p>
+          <p class="president-signature">— Rishi Gupta, President</p>
+        </section>
+      </article>
+
+      <!-- Calendar container -->
+      <aside class="event-calendar-container" aria-label="Upcoming Club Events Calendar">
+        <div class="event-calendar-header">
+          <h3><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Upcoming Club Events</h3>
+          <span class="badge badge-info">Live Feed</span>
+        </div>
+        <div class="calendar-widget">
+          <iframe 
+            src="https://calendar.google.com/calendar/embed?src=projectmanagementsoc%40gmail.com&ctz=Europe%2FDublin&mode=AGENDA&showTitle=0&showNav=0&showDate=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0" 
+            scrolling="no" 
+            loading="lazy"
+            title="Upcoming Club Events Calendar"
+          ></iframe>
+        </div>
+        <div class="calendar-footer">
+          <a href="https://calendar.google.com/calendar/u/0/r?cid=projectmanagementsoc@gmail.com" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i> Add to Google Calendar
+          </a>
+        </div>
+      </aside>
+
     </section>
-  
-    <!-- Calendar container -->
-    <aside class="event-calendar-container" aria-label="Upcoming Club Events Calendar">
-      <div class="event-calendar-header">
-        <h3><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Upcoming Club Events</h3>
-        <span class="badge badge-info">Live Feed</span>
+
+    <!-- Main content: About, Mission, Core Values -->
+    <section class="main-content" aria-label="About the Project Management Club">
+
+      <h2 class="section-title">About the Club</h2>
+      <p class="about-text">
+        The Project Management Club at DBS aims to inspire and equip students with practical and professional project management knowledge. It will provide a platform for learning, leadership, networking, and collaboration through PMI’s resources and guidance, supporting students in applying project management in both personal and professional contexts.
+      </p>
+
+      <div class="info-grid">
+
+        <article class="info-block" aria-labelledby="mission-title">
+          <h3 id="mission-title">Mission Alignment</h3>
+          <p>This club supports the mission and vision of the Project Management Institute (PMI):</p>
+          <ul>
+            <li><strong>Mission:</strong> Provide project professionals and employers with resources, continuous development, and globally recognized certifications.</li>
+            <li><strong>Vision:</strong> Advance a world where every project delivers maximum value, responsibly.</li>
+          </ul>
+        </article>
+
+        <article class="info-block" aria-labelledby="values-title">
+          <h3 id="values-title">Core Values and Practices of PMI</h3>
+          <p>The club will embody PMI's core values:</p>
+          <ul>
+            <li><strong>Make It Easy</strong> – Reduce complexity and foster access to knowledge.</li>
+            <li><strong>Aim Higher</strong> – Strive for excellence and accountability.</li>
+            <li><strong>Be Welcoming</strong> – Foster diversity, inclusivity, and respect.</li>
+            <li><strong>Embrace Curiosity</strong> – Encourage learning and innovation.</li>
+            <li><strong>Together We Can</strong> – Promote collaboration and shared purpose.</li>
+          </ul>
+        </article>
+
       </div>
-      <div class="calendar-widget">
-        <iframe 
-          src="https://calendar.google.com/calendar/embed?src=projectmanagementsoc%40gmail.com&ctz=Europe%2FDublin&mode=AGENDA&showTitle=0&showNav=0&showDate=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0" 
-          scrolling="no" 
-          loading="lazy"
-          title="Upcoming Club Events Calendar"
-        ></iframe>
-      </div>
-      <div class="calendar-footer">
-        <a href="https://calendar.google.com/calendar/u/0/r?cid=projectmanagementsoc@gmail.com" target="_blank" rel="noopener noreferrer">
-          <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i> Add to Google Calendar
-        </a>
-      </div>
-    </aside>
-  
-  </section>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
+
   

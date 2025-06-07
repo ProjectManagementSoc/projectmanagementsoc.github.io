@@ -45,6 +45,7 @@ title: Gallery
 </div>
 
 <style>
+  /* Container and heading */
   .gallery-container {
     max-width: 1200px;
     margin: 3rem auto;
@@ -59,11 +60,15 @@ title: Gallery
     margin-bottom: 2rem;
     letter-spacing: 0.05em;
   }
+
+  /* Grid layout */
   .gallery-grid {
     display: grid;
     gap: 2.2rem;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
+
+  /* Card styling */
   .gallery-card {
     background: linear-gradient(145deg, #f0f4ff, #d9e4ff);
     border-radius: 16px;
@@ -81,6 +86,8 @@ title: Gallery
     transform: translateY(-6px);
     box-shadow: 0 15px 30px rgba(25, 45, 90, 0.25);
   }
+
+  /* Image */
   .gallery-image-wrapper {
     width: 140px;
     height: 140px;
@@ -97,6 +104,8 @@ title: Gallery
     display: block;
     border-radius: 16px;
   }
+
+  /* Text */
   .event-name {
     font-size: 1.2rem;
     font-weight: 700;
@@ -105,6 +114,7 @@ title: Gallery
     text-align: center;
   }
 
+  /* Popup Overlay */
   #popup-overlay {
     position: fixed;
     top: 0;
@@ -121,6 +131,7 @@ title: Gallery
   #popup-overlay.show {
     display: flex;
   }
+
   #popup-image {
     max-width: 90vw;
     max-height: 80vh;
@@ -128,6 +139,7 @@ title: Gallery
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     animation: popIn 0.4s ease forwards;
   }
+
   #popup-close {
     position: absolute;
     top: 20px;
@@ -146,6 +158,8 @@ title: Gallery
     color: #f0f0f0;
     outline: none;
   }
+
+  /* Navigation arrows */
   .nav-arrow {
     position: absolute;
     top: 50%;
@@ -176,6 +190,8 @@ title: Gallery
     background: rgba(20, 30, 60, 0.9);
     outline: none;
   }
+
+  /* Animations */
   @keyframes fadeIn {
     from { background: rgba(20, 30, 60, 0); }
     to { background: rgba(20, 30, 60, 0.85); }
@@ -192,30 +208,6 @@ title: Gallery
   }
 </style>
 
-<!-- Dynamic image count with Liquid -->
-<script>
-  const events = {
-    {% assign event_counts = {} %}
-    {% for file in site.static_files %}
-      {% assign parts = file.path | split: '/' %}
-      {% if parts[1] == "gallery" and parts.size > 3 %}
-        {% assign folder = parts[2] %}
-        {% assign ext = file.extname | downcase %}
-        {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" %}
-          {% if event_counts[folder] %}
-            {% assign event_counts[folder] = event_counts[folder] | plus: 1 %}
-          {% else %}
-            {% assign event_counts = event_counts | merge: {{ folder | jsonify }}: 1 %}
-          {% endif %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-    {% for event in event_counts %}
-      "{{ event[0] }}": {{ event[1] }}{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  };
-</script>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const galleryCards = document.querySelectorAll('.gallery-card');
@@ -224,6 +216,14 @@ title: Gallery
     const popupClose = document.getElementById('popup-close');
     const popupPrev = document.getElementById('popup-prev');
     const popupNext = document.getElementById('popup-next');
+
+    // Define how many images each event has (adjust as needed)
+    const events = {
+      "21May_club_event": 5,
+      "27May_bingo_night": 4,
+      "4June_panel_discussion": 6,
+      "17June_movie_night": 3
+    };
 
     let currentEvent = null;
     let currentIndex = 1;
@@ -255,7 +255,7 @@ title: Gallery
       if (!currentEvent) return;
       currentIndex++;
       if (currentIndex > events[currentEvent]) {
-        currentIndex = 1;
+        currentIndex = 1; // loop back to first
       }
       updateImage();
     }
@@ -264,7 +264,7 @@ title: Gallery
       if (!currentEvent) return;
       currentIndex--;
       if (currentIndex < 1) {
-        currentIndex = events[currentEvent];
+        currentIndex = events[currentEvent]; // loop back to last
       }
       updateImage();
     }
@@ -285,6 +285,7 @@ title: Gallery
     popupNext.addEventListener('click', showNext);
     popupPrev.addEventListener('click', showPrev);
 
+    // Close popup on overlay click outside image and nav buttons
     popupOverlay.addEventListener('click', (e) => {
       if (e.target === popupOverlay) {
         closePopup();
@@ -296,12 +297,13 @@ title: Gallery
 
       if (e.key === 'Escape') {
         closePopup();
-      } else if (e.key === 'ArrowRight') {
+      }
+      else if (e.key === 'ArrowRight') {
         showNext();
-      } else if (e.key === 'ArrowLeft') {
+      }
+      else if (e.key === 'ArrowLeft') {
         showPrev();
       }
     });
   });
 </script>
-

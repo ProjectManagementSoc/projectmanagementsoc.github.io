@@ -8,67 +8,95 @@ subtitle:
 layout: default
 title: Gallery
 ---
----
-layout: default
-title: Gallery
----
 
 <div class="container mx-auto px-4 py-12">
   <h1 class="text-4xl font-bold mb-10 text-center">Event Gallery</h1>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+  <!-- Folder-style event boxes -->
+  <div class="flex gap-6 overflow-x-auto pb-4">
     {% assign events = 
-      "21 May Club event,21May_club_event;
-       27 May Bingo Night,27May_bingo_night;
-       4 June Panel discussion,4June_panel_discussion;
-       17 June Movie Night,17June_movie_night;
-       25 June Beach Party,25June_beach_party" | split: ";" %}
+      "21 May,21May_club_event;
+       27 May,27May_bingo_night;
+       4 June,4June_panel_discussion;
+       17 June,17June_movie_night;
+       25 June,25June_beach_party" | split: ";" %}
 
     {% for item in events %}
       {% assign parts = item | split: "," %}
       {% assign title = parts[0] %}
       {% assign folder = parts[1] %}
-      <div class="bg-white shadow-xl rounded-2xl overflow-hidden hover:shadow-2xl transition">
-        <div 
-          class="cursor-pointer"
-          onclick="openGallery('{{ folder }}')"
-        >
-          <div class="h-48 bg-gradient-to-br from-blue-300 to-purple-400 flex items-center justify-center text-white text-xl font-semibold tracking-wide text-center">
-            {{ title }}
-          </div>
-        </div>
+      <div 
+        onclick="openGallery('{{ folder }}')"
+        class="min-w-[150px] h-[150px] flex items-center justify-center text-white text-lg font-semibold rounded-xl cursor-pointer bg-gradient-to-br from-purple-500 to-blue-500 shadow-lg transform transition-all hover:scale-105 active:scale-95 hover:shadow-2xl"
+      >
+        {{ title }}
       </div>
     {% endfor %}
   </div>
 </div>
 
-<!-- Lightbox Popup -->
-<div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center hidden z-50">
-  <div class="relative max-w-6xl w-full px-4">
-    <button onclick="closeGallery()" class="absolute top-4 right-4 text-white text-3xl font-bold">&times;</button>
-    <div id="lightboxImages" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-16 overflow-y-auto max-h-[80vh]"></div>
+<!-- Lightbox Overlay -->
+<div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 hidden">
+  <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-4xl font-bold z-50">&times;</button>
+
+  <div class="relative max-w-3xl w-full px-4">
+    <img id="lightboxImage" src="" class="rounded-xl shadow-lg mx-auto opacity-0 scale-95 transition-all duration-500" />
+    
+    <!-- Navigation -->
+    <button 
+      onclick="prevImage()" 
+      class="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-3xl font-bold bg-black bg-opacity-40 hover:bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center"
+    >&#8249;</button>
+
+    <button 
+      onclick="nextImage()" 
+      class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-3xl font-bold bg-black bg-opacity-40 hover:bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center"
+    >&#8250;</button>
   </div>
 </div>
 
 <script>
+  let currentFolder = '';
+  let currentIndex = 1;
+  let maxImages = 20;
+
   function openGallery(folder) {
-    const lightbox = document.getElementById('lightbox');
-    const container = document.getElementById('lightboxImages');
-    container.innerHTML = '';
+    currentFolder = folder;
+    currentIndex = 1;
+    showImage();
+    document.getElementById('lightbox').classList.remove('hidden');
+  }
 
-    for (let i = 1; i <= 20; i++) { // adjust max number as needed
-      const img = document.createElement('img');
-      img.src = `/assets/gallery/${folder}/${i}.jpg`;
-      img.className = "w-full h-auto rounded-lg shadow-md";
-      img.onerror = function () { this.remove(); };
-      container.appendChild(img);
+  function showImage() {
+    const img = document.getElementById('lightboxImage');
+    img.style.opacity = 0;
+    img.style.transform = 'scale(0.95)';
+    const src = `/assets/gallery/${currentFolder}/${currentIndex}.jpg`;
+    img.onload = () => {
+      img.style.opacity = 1;
+      img.style.transform = 'scale(1)';
+    };
+    img.onerror = () => nextImage(); // skip if image not found
+    img.src = src;
+  }
+
+  function nextImage() {
+    if (currentIndex < maxImages) {
+      currentIndex++;
+      showImage();
     }
+  }
 
-    lightbox.classList.remove('hidden');
+  function prevImage() {
+    if (currentIndex > 1) {
+      currentIndex--;
+      showImage();
+    }
   }
 
   function closeGallery() {
     document.getElementById('lightbox').classList.add('hidden');
   }
 </script>
+
 

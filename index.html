@@ -128,14 +128,78 @@ subtitle:
     @media (max-width: 900px) {
       .top-section {
         flex-direction: column;
+        padding: 0 1rem 2rem;
       }
+  
+      .president-speech-card {
+        padding: 1.8rem 1.5rem;
+        margin-bottom: 2rem;
+      }
+  
+      .speech-header h2 {
+        font-size: 1.7rem;
+      }
+  
+      .pm-tag {
+        font-size: 0.85rem;
+      }
+  
+      .speech-body {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+  
       .event-calendar-container {
         width: 100%;
         height: auto;
-        padding-bottom: 1rem;
+        padding: 1.5rem 1.8rem;
+        margin-bottom: 2rem;
       }
+  
       .calendar-widget iframe {
         height: 320px;
+      }
+  
+      .event-calendar-header {
+        font-size: 1.2rem;
+        gap: 0.4rem;
+      }
+  
+      .badge-info {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.5rem;
+      }
+  
+      .calendar-footer a {
+        font-size: 0.8rem;
+        padding: 0.35rem 0.9rem;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .speech-header h2 {
+        font-size: 1.5rem;
+      }
+  
+      .pm-tag {
+        font-size: 0.8rem;
+      }
+  
+      .speech-body {
+        font-size: 0.9rem;
+      }
+  
+      .calendar-widget iframe {
+        height: 280px;
+      }
+  
+      .event-calendar-header {
+        font-size: 1.1rem;
+      }
+  
+      .calendar-footer a {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.8rem;
       }
     }
   </style>

@@ -3,10 +3,15 @@ layout: default
 title: Gallery
 ---
 
+---
+layout: default
+title: Event Gallery
+subtitle: 
+---
+
 <div class="gallery-container">
   <p class="team-head-text stylish-heading">Event Gallery</p>
   <div class="gallery-grid">
-    <!-- Event Tile 1 -->
     <div class="gallery-card" data-event="21May_club_event" tabindex="0" aria-label="Open gallery for 21 May Club Event">
       <div class="gallery-image-wrapper">
         <img src="{{ '/assets/gallery/21May_club_event/1.jpg' | relative_url }}" alt="21 May Club Event" loading="lazy" class="gallery-event-image" />
@@ -14,7 +19,6 @@ title: Gallery
       <p class="event-name">21 May Club Event</p>
     </div>
 
-    <!-- Event Tile 2 -->
     <div class="gallery-card" data-event="27May_bingo_night" tabindex="0" aria-label="Open gallery for 27 May Bingo Night">
       <div class="gallery-image-wrapper">
         <img src="{{ '/assets/gallery/27May_bingo_night/1.jpg' | relative_url }}" alt="27 May Bingo Night" loading="lazy" class="gallery-event-image" />
@@ -22,7 +26,6 @@ title: Gallery
       <p class="event-name">27 May Bingo Night</p>
     </div>
 
-    <!-- Event Tile 3 -->
     <div class="gallery-card" data-event="4June_panel_discussion" tabindex="0" aria-label="Open gallery for 4 June Panel Discussion">
       <div class="gallery-image-wrapper">
         <img src="{{ '/assets/gallery/4June_panel_discussion/1.jpg' | relative_url }}" alt="4 June Panel Discussion" loading="lazy" class="gallery-event-image" />
@@ -30,7 +33,6 @@ title: Gallery
       <p class="event-name">4 June Panel Discussion</p>
     </div>
 
-    <!-- Event Tile 4 -->
     <div class="gallery-card" data-event="17June_movie_night" tabindex="0" aria-label="Open gallery for 17 June Movie Night">
       <div class="gallery-image-wrapper">
         <img src="{{ '/assets/gallery/17June_movie_night/1.jpg' | relative_url }}" alt="17 June Movie Night" loading="lazy" class="gallery-event-image" />
@@ -43,7 +45,9 @@ title: Gallery
 <!-- Popup Overlay -->
 <div id="popup-overlay" aria-modal="true" role="dialog" aria-hidden="true" tabindex="-1">
   <button id="popup-close" aria-label="Close image popup">×</button>
+  <button id="popup-prev" aria-label="Previous image" class="nav-arrow">&#10094;</button>
   <img id="popup-image" src="" alt="Event Image" />
+  <button id="popup-next" aria-label="Next image" class="nav-arrow">&#10095;</button>
 </div>
 
 <style>
@@ -161,6 +165,38 @@ title: Gallery
     outline: none;
   }
 
+  /* Navigation arrows */
+  .nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 4rem;
+    color: white;
+    background: rgba(20, 30, 60, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+  }
+  #popup-prev {
+    left: 30px;
+  }
+  #popup-next {
+    right: 30px;
+  }
+  .nav-arrow:hover,
+  .nav-arrow:focus {
+    background: rgba(20, 30, 60, 0.9);
+    outline: none;
+  }
+
   /* Animations */
   @keyframes fadeIn {
     from { background: rgba(20, 30, 60, 0); }
@@ -184,22 +220,30 @@ title: Gallery
     const popupOverlay = document.getElementById('popup-overlay');
     const popupImage = document.getElementById('popup-image');
     const popupClose = document.getElementById('popup-close');
+    const popupPrev = document.getElementById('popup-prev');
+    const popupNext = document.getElementById('popup-next');
 
-    // Map event name to number of images
-    // If you have multiple images per event, you can expand this logic.
-    // For now, we just show 1 image (1.jpg)
-    // Extendable if you want to add next/prev functionality in future.
+    // Define how many images each event has (adjust as needed)
     const events = {
-      "21May_club_event": 1,
-      "27May_bingo_night": 1,
-      "4June_panel_discussion": 1,
-      "17June_movie_night": 1
+      "21May_club_event": 5,
+      "27May_bingo_night": 4,
+      "4June_panel_discussion": 6,
+      "17June_movie_night": 3
     };
 
-    function openPopup(eventName) {
-      const imgPath = `{{ "/assets/gallery/" | relative_url }}${eventName}/1.jpg`;
+    let currentEvent = null;
+    let currentIndex = 1;
+
+    function updateImage() {
+      const imgPath = `{{ "/assets/gallery/" | relative_url }}${currentEvent}/${currentIndex}.jpg`;
       popupImage.src = imgPath;
-      popupImage.alt = `Image from ${eventName.replace(/_/g, ' ')}`;
+      popupImage.alt = `Image ${currentIndex} from ${currentEvent.replace(/_/g, ' ')}`;
+    }
+
+    function openPopup(eventName) {
+      currentEvent = eventName;
+      currentIndex = 1;
+      updateImage();
       popupOverlay.classList.add('show');
       popupOverlay.setAttribute('aria-hidden', 'false');
       popupClose.focus();
@@ -209,13 +253,32 @@ title: Gallery
       popupOverlay.classList.remove('show');
       popupOverlay.setAttribute('aria-hidden', 'true');
       popupImage.src = '';
+      currentEvent = null;
+      currentIndex = 1;
+    }
+
+    function showNext() {
+      if (!currentEvent) return;
+      currentIndex++;
+      if (currentIndex > events[currentEvent]) {
+        currentIndex = 1; // loop back to first
+      }
+      updateImage();
+    }
+
+    function showPrev() {
+      if (!currentEvent) return;
+      currentIndex--;
+      if (currentIndex < 1) {
+        currentIndex = events[currentEvent]; // loop back to last
+      }
+      updateImage();
     }
 
     galleryCards.forEach(card => {
       card.addEventListener('click', () => {
         openPopup(card.getAttribute('data-event'));
       });
-      // Support keyboard accessibility (Enter or Space)
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -225,23 +288,28 @@ title: Gallery
     });
 
     popupClose.addEventListener('click', closePopup);
+    popupNext.addEventListener('click', showNext);
+    popupPrev.addEventListener('click', showPrev);
 
-    // Close popup on overlay click (outside image)
+    // Close popup on overlay click outside image and nav buttons
     popupOverlay.addEventListener('click', (e) => {
       if (e.target === popupOverlay) {
         closePopup();
       }
     });
 
-    // Close popup on Escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && popupOverlay.classList.contains('show')) {
+      if (!popupOverlay.classList.contains('show')) return;
+
+      if (e.key === 'Escape') {
         closePopup();
+      }
+      else if (e.key === 'ArrowRight') {
+        showNext();
+      }
+      else if (e.key === 'ArrowLeft') {
+        showPrev();
       }
     });
   });
 </script>
-
-
-
-

@@ -3,278 +3,245 @@ layout: default
 title: Gallery
 ---
 
-<div class="container mx-auto px-4 py-16">
-  <h1 class="text-4xl md:text-5xl font-bold text-center mb-14 tracking-tight text-gray-800 dark:text-gray-100">
-    📸 Event Gallery
-  </h1>
-
-  <!-- Theme toggle button -->
-  <div class="text-center mb-8">
-    <button
-      id="themeToggle"
-      class="px-5 py-2 rounded-full border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition hover:bg-gray-100 dark:hover:bg-gray-700"
-      aria-label="Toggle dark/light theme"
-    >
-      Toggle Theme
-    </button>
-  </div>
-
-  <!-- Folder Tiles -->
-  <div class="flex gap-6 overflow-x-auto pb-6">
-    {% assign events = 
-      "21 May,21May_club_event;
-       27 May,27May_bingo_night;
-       4 June,4June_panel_discussion;
-       17 June,17June_movie_night;
-       25 June,25June_beach_party" | split: ";" %}
-
-    {% for item in events %}
-      {% assign parts = item | split: "," %}
-      {% assign title = parts[0] %}
-      {% assign folder = parts[1] %}
-
-      <div
-        onclick="openGallery('{{ folder }}')"
-        class="min-w-[160px] h-[160px] bg-white dark:bg-gray-900 rounded-2xl shadow-xl flex items-center justify-center text-xl font-semibold text-gray-700 dark:text-gray-300 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400"
-      >
-        {{ title }}
+<div class="gallery-container">
+  <p class="team-head-text stylish-heading">Event Gallery</p>
+  <div class="gallery-grid">
+    <!-- Event Tile 1 -->
+    <div class="gallery-card" data-event="21May_club_event" tabindex="0" aria-label="Open gallery for 21 May Club Event">
+      <div class="gallery-image-wrapper">
+        <img src="{{ '/assets/gallery/21May_club_event/1.jpg' | relative_url }}" alt="21 May Club Event" loading="lazy" class="gallery-event-image" />
       </div>
-    {% endfor %}
-  </div>
-</div>
+      <p class="event-name">21 May Club Event</p>
+    </div>
 
-<!-- Lightbox -->
-<div
-  id="lightbox"
-  class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden items-center justify-center touch-pan-y"
-  tabindex="0"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Image gallery lightbox"
->
-  <div
-    id="lightboxContent"
-    class="relative max-w-4xl w-full p-4 animate-popup-zoom"
-    ontouchstart="touchStart(event)"
-    ontouchend="touchEnd(event)"
-  >
-    <button
-      onclick="closeGallery()"
-      class="absolute -top-10 right-2 text-white text-4xl font-bold hover:text-red-400 transition"
-      aria-label="Close gallery"
-    >
-      &times;
-    </button>
-
-    <div class="relative w-full h-auto flex items-center justify-center">
-      <button
-        onclick="prevImage()"
-        class="absolute left-0 z-20 h-full w-16 bg-gradient-to-r from-black/60 to-transparent flex items-center justify-center text-white text-3xl hover:scale-110 transition"
-        aria-label="Previous image"
-      >&#8249;</button>
-
-      <!-- Loader spinner -->
-      <div
-        id="loader"
-        class="absolute inset-0 flex items-center justify-center"
-        style="display:none;"
-      >
-        <svg
-          class="animate-spin h-12 w-12 text-white"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            class="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="4"
-          ></circle>
-          <path
-            class="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-          ></path>
-        </svg>
+    <!-- Event Tile 2 -->
+    <div class="gallery-card" data-event="27May_bingo_night" tabindex="0" aria-label="Open gallery for 27 May Bingo Night">
+      <div class="gallery-image-wrapper">
+        <img src="{{ '/assets/gallery/27May_bingo_night/1.jpg' | relative_url }}" alt="27 May Bingo Night" loading="lazy" class="gallery-event-image" />
       </div>
+      <p class="event-name">27 May Bingo Night</p>
+    </div>
 
-      <img
-        id="lightboxImage"
-        src=""
-        alt="Gallery Image"
-        class="rounded-xl max-h-[80vh] mx-auto opacity-0 scale-95 transition-all duration-500 shadow-2xl"
-        aria-live="polite"
-      />
+    <!-- Event Tile 3 -->
+    <div class="gallery-card" data-event="4June_panel_discussion" tabindex="0" aria-label="Open gallery for 4 June Panel Discussion">
+      <div class="gallery-image-wrapper">
+        <img src="{{ '/assets/gallery/4June_panel_discussion/1.jpg' | relative_url }}" alt="4 June Panel Discussion" loading="lazy" class="gallery-event-image" />
+      </div>
+      <p class="event-name">4 June Panel Discussion</p>
+    </div>
 
-      <button
-        onclick="nextImage()"
-        class="absolute right-0 z-20 h-full w-16 bg-gradient-to-l from-black/60 to-transparent flex items-center justify-center text-white text-3xl hover:scale-110 transition"
-        aria-label="Next image"
-      >&#8250;</button>
+    <!-- Event Tile 4 -->
+    <div class="gallery-card" data-event="17June_movie_night" tabindex="0" aria-label="Open gallery for 17 June Movie Night">
+      <div class="gallery-image-wrapper">
+        <img src="{{ '/assets/gallery/17June_movie_night/1.jpg' | relative_url }}" alt="17 June Movie Night" loading="lazy" class="gallery-event-image" />
+      </div>
+      <p class="event-name">17 June Movie Night</p>
     </div>
   </div>
 </div>
 
-<!-- Zoom animation -->
+<!-- Popup Overlay -->
+<div id="popup-overlay" aria-modal="true" role="dialog" aria-hidden="true" tabindex="-1">
+  <button id="popup-close" aria-label="Close image popup">×</button>
+  <img id="popup-image" src="" alt="Event Image" />
+</div>
+
 <style>
-  @keyframes popup-zoom {
+  /* Container and heading */
+  .gallery-container {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .stylish-heading {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Grid layout */
+  .gallery-grid {
+    display: grid;
+    gap: 2.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  /* Card styling */
+  .gallery-card {
+    background: linear-gradient(145deg, #f0f4ff, #d9e4ff);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(25, 45, 90, 0.1);
+    padding: 1.8rem 1.5rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .gallery-card:hover,
+  .gallery-card:focus {
+    outline: none;
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(25, 45, 90, 0.25);
+  }
+
+  /* Image */
+  .gallery-image-wrapper {
+    width: 140px;
+    height: 140px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.3rem;
+    flex-shrink: 0;
+  }
+  .gallery-event-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+  }
+
+  /* Text */
+  .event-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Popup Overlay */
+  #popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(20, 30, 60, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease forwards;
+  }
+  #popup-overlay.show {
+    display: flex;
+  }
+
+  #popup-image {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    animation: popIn 0.4s ease forwards;
+  }
+
+  #popup-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: transparent;
+    border: none;
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+  #popup-close:hover,
+  #popup-close:focus {
+    color: #f0f0f0;
+    outline: none;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { background: rgba(20, 30, 60, 0); }
+    to { background: rgba(20, 30, 60, 0.85); }
+  }
+  @keyframes popIn {
     from {
       opacity: 0;
-      transform: scale(0.8) translateY(30px);
+      transform: scale(0.85);
     }
     to {
       opacity: 1;
-      transform: scale(1) translateY(0);
+      transform: scale(1);
     }
-  }
-
-  .animate-popup-zoom {
-    animation: popup-zoom 0.4s ease-out forwards;
   }
 </style>
 
-<!-- Script -->
 <script>
-  let currentFolder = '';
-  let currentIndex = 1;
-  const maxImages = 20;
+  document.addEventListener('DOMContentLoaded', () => {
+    const galleryCards = document.querySelectorAll('.gallery-card');
+    const popupOverlay = document.getElementById('popup-overlay');
+    const popupImage = document.getElementById('popup-image');
+    const popupClose = document.getElementById('popup-close');
 
-  const lightbox = document.getElementById('lightbox');
-  const img = document.getElementById('lightboxImage');
-  const loader = document.getElementById('loader');
-
-  function openGallery(folder) {
-    currentFolder = folder;
-    currentIndex = 1;
-    lightbox.classList.remove('hidden');
-    lightbox.focus();
-    showImage();
-  }
-
-  function showImage() {
-    loader.style.display = 'flex';
-    img.style.opacity = 0;
-    img.style.transform = 'scale(0.95)';
-    const src = `/assets/gallery/${currentFolder}/${currentIndex}.jpg`;
-    
-    img.onload = () => {
-      loader.style.display = 'none';
-      img.style.opacity = 1;
-      img.style.transform = 'scale(1)';
-      prefetchImage(currentIndex + 1);
+    // Map event name to number of images
+    // If you have multiple images per event, you can expand this logic.
+    // For now, we just show 1 image (1.jpg)
+    // Extendable if you want to add next/prev functionality in future.
+    const events = {
+      "21May_club_event": 1,
+      "27May_bingo_night": 1,
+      "4June_panel_discussion": 1,
+      "17June_movie_night": 1
     };
-    img.onerror = () => {
-      loader.style.display = 'none';
-      nextImage(); // Skip missing
-    };
-    img.src = src;
-  }
 
-  function prefetchImage(index) {
-    if (index > maxImages) return;
-    const preImg = new Image();
-    preImg.src = `/assets/gallery/${currentFolder}/${index}.jpg`;
-  }
-
-  function nextImage() {
-    if (currentIndex < maxImages) {
-      currentIndex++;
-      showImage();
+    function openPopup(eventName) {
+      const imgPath = `{{ "/assets/gallery/" | relative_url }}${eventName}/1.jpg`;
+      popupImage.src = imgPath;
+      popupImage.alt = `Image from ${eventName.replace(/_/g, ' ')}`;
+      popupOverlay.classList.add('show');
+      popupOverlay.setAttribute('aria-hidden', 'false');
+      popupClose.focus();
     }
-  }
 
-  function prevImage() {
-    if (currentIndex > 1) {
-      currentIndex--;
-      showImage();
+    function closePopup() {
+      popupOverlay.classList.remove('show');
+      popupOverlay.setAttribute('aria-hidden', 'true');
+      popupImage.src = '';
     }
-  }
 
-  function closeGallery() {
-    lightbox.classList.add('hidden');
-  }
+    galleryCards.forEach(card => {
+      card.addEventListener('click', () => {
+        openPopup(card.getAttribute('data-event'));
+      });
+      // Support keyboard accessibility (Enter or Space)
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openPopup(card.getAttribute('data-event'));
+        }
+      });
+    });
 
-  // Swipe gestures
-  let startX = 0;
+    popupClose.addEventListener('click', closePopup);
 
-  function touchStart(e) {
-    startX = e.changedTouches[0].screenX;
-  }
+    // Close popup on overlay click (outside image)
+    popupOverlay.addEventListener('click', (e) => {
+      if (e.target === popupOverlay) {
+        closePopup();
+      }
+    });
 
-  function touchEnd(e) {
-    const endX = e.changedTouches[0].screenX;
-    const diff = startX - endX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) nextImage(); // swipe left
-      else prevImage(); // swipe right
-    }
-  }
-
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (lightbox.classList.contains('hidden')) return;
-
-    switch (e.key) {
-      case 'ArrowRight':
-        nextImage();
-        break;
-      case 'ArrowLeft':
-        prevImage();
-        break;
-      case 'Escape':
-        closeGallery();
-        break;
-    }
+    // Close popup on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && popupOverlay.classList.contains('show')) {
+        closePopup();
+      }
+    });
   });
-
-  // Dark/light theme toggle with localStorage persistence
-  const themeToggle = document.getElementById('themeToggle');
-  const root = document.documentElement;
-
-  function applyTheme(theme) {
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      themeToggle.textContent = 'Switch to Light Mode';
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      themeToggle.textContent = 'Switch to Dark Mode';
-    }
-  }
-
-  themeToggle.addEventListener('click', () => {
-    if (root.classList.contains('dark')) {
-      applyTheme('light');
-    } else {
-      applyTheme('dark');
-    }
-  });
-
-  // Initialize theme on load
-  (function () {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      applyTheme('dark');
-    } else {
-      applyTheme('light');
-    }
-  })();
 </script>
 
-<!-- Tailwind Dark Mode Support -->
-<style>
-  /* Enable Tailwind dark mode class strategy */
-  :root {
-    color-scheme: light;
-  }
-  .dark {
-    color-scheme: dark;
-  }
-</style>
 
 
 

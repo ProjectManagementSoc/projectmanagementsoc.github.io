@@ -1,19 +1,26 @@
 ---
 layout: default
-title: 
-subtitle: 
----
-
----
-layout: default
 title: Gallery
 ---
 
-<div class="container mx-auto px-4 py-12">
-  <h1 class="text-4xl font-bold mb-10 text-center">Event Gallery</h1>
+<div class="container mx-auto px-4 py-16">
+  <h1 class="text-4xl md:text-5xl font-bold text-center mb-14 tracking-tight text-gray-800 dark:text-gray-100">
+    📸 Event Gallery
+  </h1>
 
-  <!-- Folder-style event boxes -->
-  <div class="flex gap-6 overflow-x-auto pb-4">
+  <!-- Theme toggle button -->
+  <div class="text-center mb-8">
+    <button
+      id="themeToggle"
+      class="px-5 py-2 rounded-full border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition hover:bg-gray-100 dark:hover:bg-gray-700"
+      aria-label="Toggle dark/light theme"
+    >
+      Toggle Theme
+    </button>
+  </div>
+
+  <!-- Folder Tiles -->
+  <div class="flex gap-6 overflow-x-auto pb-6">
     {% assign events = 
       "21 May,21May_club_event;
        27 May,27May_bingo_night;
@@ -25,9 +32,10 @@ title: Gallery
       {% assign parts = item | split: "," %}
       {% assign title = parts[0] %}
       {% assign folder = parts[1] %}
-      <div 
+
+      <div
         onclick="openGallery('{{ folder }}')"
-        class="min-w-[150px] h-[150px] flex items-center justify-center text-white text-lg font-semibold rounded-xl cursor-pointer bg-gradient-to-br from-purple-500 to-blue-500 shadow-lg transform transition-all hover:scale-105 active:scale-95 hover:shadow-2xl"
+        class="min-w-[160px] h-[160px] bg-white dark:bg-gray-900 rounded-2xl shadow-xl flex items-center justify-center text-xl font-semibold text-gray-700 dark:text-gray-300 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400"
       >
         {{ title }}
       </div>
@@ -35,49 +43,140 @@ title: Gallery
   </div>
 </div>
 
-<!-- Lightbox Overlay -->
-<div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 hidden">
-  <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-4xl font-bold z-50">&times;</button>
+<!-- Lightbox -->
+<div
+  id="lightbox"
+  class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden items-center justify-center touch-pan-y"
+  tabindex="0"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Image gallery lightbox"
+>
+  <div
+    id="lightboxContent"
+    class="relative max-w-4xl w-full p-4 animate-popup-zoom"
+    ontouchstart="touchStart(event)"
+    ontouchend="touchEnd(event)"
+  >
+    <button
+      onclick="closeGallery()"
+      class="absolute -top-10 right-2 text-white text-4xl font-bold hover:text-red-400 transition"
+      aria-label="Close gallery"
+    >
+      &times;
+    </button>
 
-  <div class="relative max-w-3xl w-full px-4">
-    <img id="lightboxImage" src="" class="rounded-xl shadow-lg mx-auto opacity-0 scale-95 transition-all duration-500" />
-    
-    <!-- Navigation -->
-    <button 
-      onclick="prevImage()" 
-      class="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-3xl font-bold bg-black bg-opacity-40 hover:bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center"
-    >&#8249;</button>
+    <div class="relative w-full h-auto flex items-center justify-center">
+      <button
+        onclick="prevImage()"
+        class="absolute left-0 z-20 h-full w-16 bg-gradient-to-r from-black/60 to-transparent flex items-center justify-center text-white text-3xl hover:scale-110 transition"
+        aria-label="Previous image"
+      >&#8249;</button>
 
-    <button 
-      onclick="nextImage()" 
-      class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-3xl font-bold bg-black bg-opacity-40 hover:bg-opacity-70 rounded-full w-12 h-12 flex items-center justify-center"
-    >&#8250;</button>
+      <!-- Loader spinner -->
+      <div
+        id="loader"
+        class="absolute inset-0 flex items-center justify-center"
+        style="display:none;"
+      >
+        <svg
+          class="animate-spin h-12 w-12 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          ></path>
+        </svg>
+      </div>
+
+      <img
+        id="lightboxImage"
+        src=""
+        alt="Gallery Image"
+        class="rounded-xl max-h-[80vh] mx-auto opacity-0 scale-95 transition-all duration-500 shadow-2xl"
+        aria-live="polite"
+      />
+
+      <button
+        onclick="nextImage()"
+        class="absolute right-0 z-20 h-full w-16 bg-gradient-to-l from-black/60 to-transparent flex items-center justify-center text-white text-3xl hover:scale-110 transition"
+        aria-label="Next image"
+      >&#8250;</button>
+    </div>
   </div>
 </div>
 
+<!-- Zoom animation -->
+<style>
+  @keyframes popup-zoom {
+    from {
+      opacity: 0;
+      transform: scale(0.8) translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .animate-popup-zoom {
+    animation: popup-zoom 0.4s ease-out forwards;
+  }
+</style>
+
+<!-- Script -->
 <script>
   let currentFolder = '';
   let currentIndex = 1;
-  let maxImages = 20;
+  const maxImages = 20;
+
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImage');
+  const loader = document.getElementById('loader');
 
   function openGallery(folder) {
     currentFolder = folder;
     currentIndex = 1;
+    lightbox.classList.remove('hidden');
+    lightbox.focus();
     showImage();
-    document.getElementById('lightbox').classList.remove('hidden');
   }
 
   function showImage() {
-    const img = document.getElementById('lightboxImage');
+    loader.style.display = 'flex';
     img.style.opacity = 0;
     img.style.transform = 'scale(0.95)';
     const src = `/assets/gallery/${currentFolder}/${currentIndex}.jpg`;
+    
     img.onload = () => {
+      loader.style.display = 'none';
       img.style.opacity = 1;
       img.style.transform = 'scale(1)';
+      prefetchImage(currentIndex + 1);
     };
-    img.onerror = () => nextImage(); // skip if image not found
+    img.onerror = () => {
+      loader.style.display = 'none';
+      nextImage(); // Skip missing
+    };
     img.src = src;
+  }
+
+  function prefetchImage(index) {
+    if (index > maxImages) return;
+    const preImg = new Image();
+    preImg.src = `/assets/gallery/${currentFolder}/${index}.jpg`;
   }
 
   function nextImage() {
@@ -95,8 +194,87 @@ title: Gallery
   }
 
   function closeGallery() {
-    document.getElementById('lightbox').classList.add('hidden');
+    lightbox.classList.add('hidden');
   }
+
+  // Swipe gestures
+  let startX = 0;
+
+  function touchStart(e) {
+    startX = e.changedTouches[0].screenX;
+  }
+
+  function touchEnd(e) {
+    const endX = e.changedTouches[0].screenX;
+    const diff = startX - endX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextImage(); // swipe left
+      else prevImage(); // swipe right
+    }
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.classList.contains('hidden')) return;
+
+    switch (e.key) {
+      case 'ArrowRight':
+        nextImage();
+        break;
+      case 'ArrowLeft':
+        prevImage();
+        break;
+      case 'Escape':
+        closeGallery();
+        break;
+    }
+  });
+
+  // Dark/light theme toggle with localStorage persistence
+  const themeToggle = document.getElementById('themeToggle');
+  const root = document.documentElement;
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      themeToggle.textContent = 'Switch to Light Mode';
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      themeToggle.textContent = 'Switch to Dark Mode';
+    }
+  }
+
+  themeToggle.addEventListener('click', () => {
+    if (root.classList.contains('dark')) {
+      applyTheme('light');
+    } else {
+      applyTheme('dark');
+    }
+  });
+
+  // Initialize theme on load
+  (function () {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
+  })();
 </script>
+
+<!-- Tailwind Dark Mode Support -->
+<style>
+  /* Enable Tailwind dark mode class strategy */
+  :root {
+    color-scheme: light;
+  }
+  .dark {
+    color-scheme: dark;
+  }
+</style>
+
 
 

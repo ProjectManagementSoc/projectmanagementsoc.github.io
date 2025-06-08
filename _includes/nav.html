@@ -1,65 +1,67 @@
-<nav class="navbar navbar-light fixed-top navbar-custom {% if page.nav-short %}top-nav-short-permanent{% else %}top-nav-regular{% endif %} flex-column align-items-start px-3 py-2">
+<nav class="navbar navbar-light fixed-top navbar-custom {% if page.nav-short %}top-nav-short-permanent{% else %}top-nav-regular{% endif %} px-4 py-3" style="background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); z-index: 1000;">
 
-  <!-- Title or Logo -->
-  {%- if site.title-img -%}
-    <a class="navbar-brand navbar-brand-logo mb-2" href="{{ '/' | absolute_url }}">
-      <img alt="{{ site.title }} Logo" src="{{ site.title-img | relative_url }}" />
-    </a>
-  {%- elsif site.title -%}
-    <a class="navbar-brand mb-2" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
-  {%- endif -%}
+  <!-- Title / Logo Section -->
+  <div class="container-fluid d-flex flex-column align-items-start">
+    {%- if site.title-img -%}
+      <a class="navbar-brand mb-2" href="{{ '/' | absolute_url }}">
+        <img alt="{{ site.title }} Logo" src="{{ site.title-img | relative_url }}" style="max-height: 40px;" />
+      </a>
+    {%- elsif site.title -%}
+      <a class="navbar-brand mb-2 fs-3 fw-bold" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
+    {%- endif -%}
+  </div>
 
-  <!-- Menu Bar (responsive and wraps on small screens) -->
-  <div class="w-100">
-    <ul class="navbar-nav d-flex flex-wrap flex-row justify-content-start w-100 gap-3">
-
+  <!-- Responsive Grid Menu -->
+  <div class="container-fluid">
+    <div class="row w-100 gx-3 gy-2 justify-content-center">
       {%- for link in site.navbar-links -%}
-        {%- if link[1].first %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-{{ forloop.index }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ link[0] }}
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown-{{ forloop.index }}">
-              {%- for childlink in link[1] -%}
-                {%- for linkparts in childlink %}
-                  <li><a class="dropdown-item" href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a></li>
-                {%- endfor -%}
-              {%- endfor %}
-            </ul>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
-          </li>
-        {%- endif -%}
+        <div class="col-auto">
+          {% if link[1].first %}
+            <div class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle px-2" href="#" id="navbarDropdown-{{ forloop.index }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ link[0] }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown-{{ forloop.index }}">
+                {%- for childlink in link[1] -%}
+                  {%- for linkparts in childlink %}
+                    <li><a class="dropdown-item" href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a></li>
+                  {%- endfor -%}
+                {%- endfor %}
+              </ul>
+            </div>
+          {% else %}
+            <a class="nav-link px-2" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
+          {% endif %}
+        </div>
       {%- endfor -%}
 
       {% if site.post_search %}
-        <li class="nav-item">
-          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+        <div class="col-auto">
+          <a class="nav-link px-2" id="nav-search-link" href="#" title="Search">
             <span id="nav-search-icon" class="fa fa-search"></span>
             <span id="nav-search-text">Search</span>
           </a>
-        </li>
-      {%- endif -%}
-    </ul>
+        </div>
+      {% endif %}
+    </div>
   </div>
 
-  <!-- Optional Extras -->
-  {% if site.navbar-extra %}
-    {% for file in site.navbar-extra %}
-      {% include {{ file }} %}
-    {% endfor %}
-  {% endif %}
-
+  <!-- Optional Avatar -->
   {% if site.avatar and page.show-avatar != false %}
-    <div class="avatar-container mt-2">
+    <div class="avatar-container mt-3 ms-4">
       <div class="avatar-img-border">
         <a href="{{ '/' | absolute_url }}">
           <img alt="Navigation bar avatar" class="avatar-img" src="{{ site.avatar | relative_url }}" />
         </a>
       </div>
     </div>
+  {% endif %}
+
+  <!-- Optional Extras -->
+  {% if site.navbar-extra %}
+    {% for file in site.navbar-extra %}
+      {% include {{ file }} %}
+    {% endfor %}
   {% endif %}
 
 </nav>

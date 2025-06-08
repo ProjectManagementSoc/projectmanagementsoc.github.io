@@ -417,14 +417,29 @@ subtitle:
 <script>
   window.addEventListener('load', () => {
     const overlay = document.getElementById('welcome-overlay');
-    setTimeout(() => {
-      overlay.style.opacity = '0';
-      overlay.addEventListener('transitionend', () => {
-        overlay.style.display = 'none';
-      });
-    }, 2000);
+
+    // Check if 'welcomeShown' flag is set in localStorage
+    if (!localStorage.getItem('welcomeShown')) {
+      // Show the overlay (default visible)
+      overlay.style.display = 'flex';
+
+      setTimeout(() => {
+        overlay.style.opacity = '0';
+
+        overlay.addEventListener('transitionend', () => {
+          overlay.style.display = 'none';
+        });
+
+        // Set the flag so next visits skip the overlay
+        localStorage.setItem('welcomeShown', 'true');
+      }, 2000);
+    } else {
+      // Hide overlay immediately if already shown
+      overlay.style.display = 'none';
+    }
   });
 </script>
+
 
 
 <body>

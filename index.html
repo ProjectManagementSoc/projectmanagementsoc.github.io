@@ -4,8 +4,6 @@ layout: default
 subtitle: 
 ---
 
-<div class="about-container">
-  <p class="team-head-text stylish-heading">Welcome to the Project Management Society</p>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,21 +43,18 @@ subtitle:
     text-decoration: underline;
   }
 
-  /* Container max width & padding */
   .container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 1rem 1.5rem 3rem;
   }
 
-  /* Top section: Speech + Calendar side by side */
   .top-section {
     display: flex;
     gap: 2rem;
     margin: 3rem 0 4rem;
   }
 
-  /* President speech card */
   .president-speech-card {
     flex: 2;
     background: linear-gradient(135deg, #d2e0ff, #f0f6ff);
@@ -100,7 +95,6 @@ subtitle:
     color: #1a1a2e;
   }
 
-  /* Calendar card */
   .event-calendar-container {
     flex: 1;
     background: linear-gradient(135deg, #d2e0ff, #f0f6ff);
@@ -164,7 +158,6 @@ subtitle:
     color: white;
   }
 
-  /* Main content below - About, Mission, Values */
   .main-content {
     background: white;
     border-radius: 20px;
@@ -182,7 +175,6 @@ subtitle:
     padding-bottom: 0.3rem;
   }
 
-  /* About text */
   .about-text {
     font-size: 1.1rem;
     color: #3e4062;
@@ -191,7 +183,6 @@ subtitle:
     line-height: 1.7;
   }
 
-  /* Mission + Core Values section: flex 2 columns on desktop */
   .info-grid {
     display: flex;
     gap: 3.5rem;
@@ -226,12 +217,10 @@ subtitle:
     margin-bottom: 0.85rem;
   }
 
-  /* Highlighted bullet titles */
   .info-block ul li strong {
     color: #4158d0;
   }
 
-  /* Responsive styling */
   @media (max-width: 900px) {
     .top-section {
       flex-direction: column;
@@ -263,39 +252,83 @@ subtitle:
     }
   }
 
+  /* ===== MOBILE OPTIMIZATION BELOW ===== */
   @media (max-width: 480px) {
+    .about-container {
+      padding: 0 1rem;
+      margin-top: 2rem;
+    }
+
+    .stylish-heading {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      padding: 0 0.5rem;
+      line-height: 1.3;
+    }
+
+    .about-section {
+      padding: 1.5rem;
+    }
+
+    .section-heading {
+      font-size: 1.5rem;
+    }
+
+    .card {
+      padding: 1.5rem;
+    }
+
+    .event-calendar-container {
+      padding: 1.5rem;
+    }
+
     .speech-header h2 {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
 
     .pm-tag {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .speech-body p {
       font-size: 1rem;
     }
 
-    .calendar-widget iframe {
-      height: 280px;
-    }
-
-    .section-title {
-      font-size: 1.6rem;
-      margin-bottom: 1.2rem;
+    .info-block {
+      padding: 1.5rem;
     }
 
     .info-block h3 {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
 
     .info-block ul {
       font-size: 1rem;
     }
-  }
-</style>
 
-<style>
+    .calendar-widget iframe {
+      height: 250px;
+    }
+
+    .calendar-footer a {
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      padding: 0;
+    }
+
+    .info-grid {
+      gap: 1.5rem;
+    }
+
+    .main-content {
+      padding: 1.5rem;
+    }
+  }
+
   .about-container {
     max-width: 1200px;
     margin: 3rem auto;
@@ -371,91 +404,78 @@ subtitle:
   }
 </style>
 </head>
+
 <body>
+<main class="container" role="main" aria-label="Project Management Club homepage">
+  <section class="top-section" aria-label="President speech and upcoming events calendar">
+    <article class="card president-speech-card" aria-labelledby="president-speech-title">
+      <header class="speech-header">
+        <h2 id="president-speech-title">President’s Speech</h2>
+        <span class="pm-tag">Project Management Society</span>
+      </header>
+      <section class="speech-body">
+        <p>
+          Welcome to the <strong>Project Management Society</strong>! As your president, I’m excited to lead a community dedicated to innovation, collaboration, and excellence.
+        </p>
+        <p>
+          Let’s challenge the status quo, learn fearlessly, and make this journey unforgettable.
+        </p>
+        <p class="president-signature">— Rishi Gupta, President</p>
+      </section>
+    </article>
 
-  <main class="container" role="main" aria-label="Project Management Club homepage">
+    <aside class="event-calendar-container" aria-label="Upcoming Club Events Calendar">
+      <div class="event-calendar-header">
+        <h3><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Upcoming Club Events</h3>
+        <span class="badge badge-info">Live Feed</span>
+      </div>
+      <div class="calendar-widget">
+        <iframe src="https://calendar.google.com/calendar/embed?src=projectmanagementsoc%40gmail.com&ctz=Europe%2FDublin&mode=AGENDA&showTitle=0&showNav=0&showDate=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0"
+                scrolling="no"
+                loading="lazy"
+                title="Upcoming Club Events Calendar">
+        </iframe>
+      </div>
+      <div class="calendar-footer">
+        <a href="https://calendar.google.com/calendar/u/0/r?cid=projectmanagementsoc@gmail.com" target="_blank" rel="noopener noreferrer">
+          <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i> Add to Google Calendar
+        </a>
+      </div>
+    </aside>
+  </section>
 
-    <!-- Top section with speech + calendar -->
-    <section class="top-section" aria-label="President speech and upcoming events calendar">
+  <section class="main-content" aria-label="About the Project Management Club">
+    <h2 class="section-title">About the Club</h2>
+    <p class="about-text">
+      The Project Management Club at DBS aims to inspire and equip students with practical and professional project management knowledge. It will provide a platform for learning, leadership, networking, and collaboration through PMI’s resources and guidance.
+    </p>
 
-      <!-- President's speech card -->
-      <article class="card president-speech-card" aria-labelledby="president-speech-title">
-        <header class="speech-header">
-          <h2 id="president-speech-title">President’s Speech</h2>
-          <span class="pm-tag">Project Management Society</span>
-        </header>
-        <section class="speech-body">
-          <p>
-            Welcome to the <strong>Project Management Society</strong>! As your president, I’m excited to lead a community dedicated to innovation, collaboration, and excellence. Together, we’ll turn visions into reality and master the art of delivering impactful projects.
-          </p>
-          <p>
-            Let’s challenge the status quo, learn fearlessly, and make this journey unforgettable.
-          </p>
-          <p class="president-signature">— Rishi Gupta, President</p>
-        </section>
+    <div class="info-grid">
+      <article class="info-block" aria-labelledby="mission-title">
+        <h3 id="mission-title">Mission Alignment</h3>
+        <p>This club supports the mission and vision of the Project Management Institute (PMI):</p>
+        <ul>
+          <li><strong>Mission:</strong> Provide project professionals and employers with resources, continuous development, and globally recognized certifications.</li>
+          <li><strong>Vision:</strong> Advance a world where every project delivers maximum value, responsibly.</li>
+        </ul>
       </article>
 
-      <!-- Calendar container -->
-      <aside class="event-calendar-container" aria-label="Upcoming Club Events Calendar">
-        <div class="event-calendar-header">
-          <h3><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Upcoming Club Events</h3>
-          <span class="badge badge-info">Live Feed</span>
-        </div>
-        <div class="calendar-widget">
-          <iframe 
-            src="https://calendar.google.com/calendar/embed?src=projectmanagementsoc%40gmail.com&ctz=Europe%2FDublin&mode=AGENDA&showTitle=0&showNav=0&showDate=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0" 
-            scrolling="no" 
-            loading="lazy"
-            title="Upcoming Club Events Calendar"
-          ></iframe>
-        </div>
-        <div class="calendar-footer">
-          <a href="https://calendar.google.com/calendar/u/0/r?cid=projectmanagementsoc@gmail.com" target="_blank" rel="noopener noreferrer">
-            <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i> Add to Google Calendar
-          </a>
-        </div>
-      </aside>
-
-    </section>
-
-    <!-- Main content: About, Mission, Core Values -->
-    <section class="main-content" aria-label="About the Project Management Club">
-
-      <h2 class="section-title">About the Club</h2>
-      <p class="about-text">
-        The Project Management Club at DBS aims to inspire and equip students with practical and professional project management knowledge. It will provide a platform for learning, leadership, networking, and collaboration through PMI’s resources and guidance, supporting students in applying project management in both personal and professional contexts.
-      </p>
-
-      <div class="info-grid">
-
-        <article class="info-block" aria-labelledby="mission-title">
-          <h3 id="mission-title">Mission Alignment</h3>
-          <p>This club supports the mission and vision of the Project Management Institute (PMI):</p>
-          <ul>
-            <li><strong>Mission:</strong> Provide project professionals and employers with resources, continuous development, and globally recognized certifications.</li>
-            <li><strong>Vision:</strong> Advance a world where every project delivers maximum value, responsibly.</li>
-          </ul>
-        </article>
-
-        <article class="info-block" aria-labelledby="values-title">
-          <h3 id="values-title">Core Values and Practices of PMI</h3>
-          <p>The club will embody PMI's core values:</p>
-          <ul>
-            <li><strong>Make It Easy</strong> – Reduce complexity and foster access to knowledge.</li>
-            <li><strong>Aim Higher</strong> – Strive for excellence and accountability.</li>
-            <li><strong>Be Welcoming</strong> – Foster diversity, inclusivity, and respect.</li>
-            <li><strong>Embrace Curiosity</strong> – Encourage learning and innovation.</li>
-            <li><strong>Together We Can</strong> – Promote collaboration and shared purpose.</li>
-          </ul>
-        </article>
-
-      </div>
-
-    </section>
-
-  </main>
-
+      <article class="info-block" aria-labelledby="values-title">
+        <h3 id="values-title">Core Values and Practices of PMI</h3>
+        <p>The club will embody PMI's core values:</p>
+        <ul>
+          <li><strong>Make It Easy</strong> – Reduce complexity and foster access to knowledge.</li>
+          <li><strong>Aim Higher</strong> – Strive for excellence and accountability.</li>
+          <li><strong>Be Welcoming</strong> – Foster diversity, inclusivity, and respect.</li>
+          <li><strong>Embrace Curiosity</strong> – Encourage learning and innovation.</li>
+          <li><strong>Together We Can</strong> – Promote collaboration and shared purpose.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</main>
 </body>
 </html>
+
 
   

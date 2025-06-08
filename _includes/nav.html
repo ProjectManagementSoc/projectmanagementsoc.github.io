@@ -1,30 +1,32 @@
 <style>
-  /* Fade transition effect */
+  /* Base styles for nav-collapse: hidden but rendered */
   .nav-collapse {
-    display: none;
     opacity: 0;
-    transition: opacity 2s ease;
+    visibility: hidden;
+    transition: opacity 2s ease, visibility 2s ease;
   }
 
+  /* When nav is expanded (mobile toggle) */
   .navbar-custom.nav-expanded .nav-collapse {
-    display: block !important;
     opacity: 1;
+    visibility: visible;
   }
 
+  /* Desktop hover styles for >= 992px screens */
   @media (min-width: 992px) {
     .navbar-custom:hover .nav-collapse {
-      display: block !important;
       opacity: 1;
+      visibility: visible;
     }
 
     .navbar-custom:not(:hover) .nav-collapse {
       opacity: 0;
-      transition: opacity 2s ease;
+      visibility: hidden;
     }
   }
 </style>
 
-<nav id="main-navbar" class="navbar navbar-light fixed-top navbar-custom px-4 py-3 flex-column align-items-start" style="background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); z-index: 1000;">
+<nav id="main-navbar" class="navbar navbar-light fixed-top navbar-custom px-4 py-3 flex-column align-items-start" style="background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); z-index: 1000;" role="navigation" aria-label="Main navigation">
 
   <!-- Title or Logo -->
   <div class="container-fluid w-100 d-flex justify-content-between align-items-center">
@@ -45,7 +47,7 @@
   </div>
 
   <!-- Collapsible Navigation Links -->
-  <div class="nav-collapse mt-3 w-100">
+  <div class="nav-collapse mt-3 w-100" id="nav-collapse">
     <div class="row gx-3 gy-2 justify-content-center">
       {%- for link in site.navbar-links -%}
         <div class="col-auto">
@@ -91,5 +93,15 @@
     navbar.classList.toggle('nav-expanded');
     const expanded = navbar.classList.contains('nav-expanded');
     expandButton.setAttribute('aria-expanded', expanded);
+  });
+
+  // Optional: Close mobile nav on link click for better UX
+  document.querySelectorAll('.nav-collapse a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 992) {
+        navbar.classList.remove('nav-expanded');
+        expandButton.setAttribute('aria-expanded', 'false');
+      }
+    });
   });
 </script>

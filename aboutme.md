@@ -9,7 +9,10 @@ title:
   <section class="about-section">
     <h2 class="section-heading">The Project Management Club at DBS</h2>
     <p>
-      The Project Management Club at DBS aims to inspire and equip students with practical and professional project management knowledge. It provides a dynamic platform for learning, leadership, networking, and collaboration through PMI’s resources and guidance. Our club supports students in applying project management principles effectively in both personal and professional contexts.
+      The Project Management Club at DBS aims to inspire and equip students with practical and professional project management knowledge.
+    </p>
+    <p>
+      It provides a dynamic platform for learning, leadership, networking, and collaboration through PMI’s resources and guidance. Our club supports students in applying project management principles effectively in both personal and professional contexts.
     </p>
   </section>
 
@@ -117,9 +120,52 @@ title:
     box-shadow: 0 6px 15px rgba(22, 49, 114, 0.12);
   }
 
+  /* Mobile-specific optimizations */
   @media (max-width: 700px) {
+    .about-container {
+      padding: 0 1rem;
+    }
+
+    .stylish-heading {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-section {
+      padding: 1.5rem 1.2rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .section-heading {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+      text-align: justify;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    ul li {
+      font-size: 0.95rem;
+      margin-bottom: 0.7rem;
+    }
+
     .grid {
       flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      padding: 1.5rem 1.2rem;
     }
   }
 </style>

@@ -47,7 +47,7 @@
     {% endfor %}
   {% endif %}
 
-  <!-- {% if site.avatar and page.show-avatar != false %}
+  {% if site.avatar and page.show-avatar != false %}
     <div class="avatar-container">
       <div class="avatar-img-border">
         <a href="{{ '/' | absolute_url }}">
@@ -55,20 +55,8 @@
         </a>
       </div>
     </div>
-  {% endif %} -->
+  {% endif %}
 
-  {%- if site.title-img and site.title -%}
-  <a class="navbar-brand navbar-brand-logo" href="{{ '/' | absolute_url }}" style="display: flex; align-items: center; gap: 0.5rem;">
-    <img alt="{{ site.title }} Logo" src="{{ site.title-img | relative_url }}" style="height: 40px;"/>
-    <span>{{ site.title }}</span>
-  </a>
-{%- elsif site.title -%}
-  <a class="navbar-brand" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
-{%- elsif site.title-img -%}
-  <a class="navbar-brand navbar-brand-logo" href="{{ '/' | absolute_url }}">
-    <img alt="{{ site.title }} Logo" src="{{ site.title-img | relative_url }}"/>
-  </a>
-{%- endif -%}
 
 </nav>
 

@@ -23,8 +23,8 @@ navbar-links:
   Home: "index"
   Events: "event-calendar"
   Gallery: "gallery"
-  Resources:
-    - Project Management Society : "https://www.pmi.org/"
+  # Resources:
+  #   - Project Management Society : "https://www.pmi.org/"
   Meet the Leaders: "leadership-governance"
   About Us: "aboutme"
   #Author's home: "https://deanattali.com"

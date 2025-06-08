@@ -9,12 +9,12 @@ subtitle:
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calendar - Project Management Club</title>
+  <title>Project Management Club Calendar</title>
 
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f5f7fa;
       padding: 1rem;
     }
@@ -22,11 +22,11 @@ subtitle:
     .calendar-container {
       max-width: 100%;
       position: relative;
-      padding-bottom: 75%; /* aspect ratio: 4:3 */
+      padding-bottom: 75%; /* Responsive aspect ratio */
       height: 0;
       overflow: hidden;
-      border: 1px solid #777;
-      border-radius: 8px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       background-color: #fff;
     }
@@ -42,7 +42,7 @@ subtitle:
 
     @media (max-width: 600px) {
       .calendar-container {
-        padding-bottom: 100%; /* taller aspect ratio for phones */
+        padding-bottom: 100%; /* Taller for mobile */
       }
     }
   </style>
@@ -50,11 +50,10 @@ subtitle:
 <body>
 
   <div class="calendar-container">
-    <iframe 
-      src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FDublin&showPrint=0&src=cHJvamVjdG1hbmFnZW1lbnRzb2NAZ21haWwuY29t&src=ZW4uaXJpc2gjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039be5&color=%230b8043"
+    <iframe
+      src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FDublin&mode=AGENDA&showPrint=0&showTitle=0&showNav=0&showDate=0&showCalendars=0&showTabs=0&showTz=0&src=cHJvamVjdG1hbmFnZW1lbnRzb2NAZ21haWwuY29t&color=%23039be5"
       loading="lazy"
-      title="Project Management Society Calendar"
-      allowfullscreen>
+      title="Project Management Society Events Calendar (Agenda View)">
     </iframe>
   </div>
 

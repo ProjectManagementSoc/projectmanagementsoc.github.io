@@ -1,41 +1,38 @@
 <style>
-  /* Base nav-collapse hidden by default */
+  /* Base style */
   .nav-collapse {
+    display: block; /* always block for transition */
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 2s ease, visibility 2s ease;
+    pointer-events: none; /* prevent clicks when hidden */
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 2s ease, max-height 0.5s ease;
   }
 
-  /* Desktop (≥992px) - show nav-collapse on hover with fade */
+  /* Desktop hover (≥992px) */
   @media (min-width: 992px) {
     .navbar-custom:hover .nav-collapse {
-      display: block;
       opacity: 1;
-      visibility: visible;
-      transition: opacity 2s ease, visibility 2s ease;
-    }
-
-    .navbar-custom:not(:hover) .nav-collapse {
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      transition: none;
+      pointer-events: auto;
+      max-height: 500px; /* enough to show all menu */
+      transition: opacity 2s ease, max-height 0.5s ease;
+      position: relative; /* ensure normal flow */
     }
   }
 
-  /* Mobile (<992px) - original toggle behavior without fade */
+  /* Mobile (<992px) */
   @media (max-width: 991.98px) {
     .nav-collapse {
-      display: none; /* Hidden by default */
-      opacity: 1 !important;    /* Disable opacity fading on mobile */
-      visibility: visible !important;
-      transition: none !important;
-      height: auto !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      max-height: none !important;
       overflow: visible !important;
+      display: none; /* hide by default */
+      transition: none !important;
     }
 
     .navbar-custom.nav-expanded .nav-collapse {
-      display: block !important; /* Show nav-collapse on toggle */
+      display: block !important;
     }
   }
 </style>

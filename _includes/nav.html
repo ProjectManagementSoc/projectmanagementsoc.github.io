@@ -1,19 +1,26 @@
 <style>
-  /* Optional: show menu on hover on large screens */
+  /* Fade transition effect */
+  .nav-collapse {
+    display: none;
+    opacity: 0;
+    transition: opacity 2s ease;
+  }
+
+  .navbar-custom.nav-expanded .nav-collapse {
+    display: block !important;
+    opacity: 1;
+  }
+
   @media (min-width: 992px) {
     .navbar-custom:hover .nav-collapse {
       display: block !important;
+      opacity: 1;
     }
-  }
 
-  /* Prevent animation flash */
-  .nav-collapse {
-    display: none;
-    transition: all 0.3s ease;
-  }
-
-  .nav-expanded .nav-collapse {
-    display: block !important;
+    .navbar-custom:not(:hover) .nav-collapse {
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
   }
 </style>
 
@@ -76,7 +83,7 @@
 {% include search.html %}
 
 <script>
-  // Toggle expand/collapse on button click
+  // Toggle expand/collapse on button click (for mobile)
   const expandButton = document.getElementById('expandToggle');
   const navbar = document.getElementById('main-navbar');
 

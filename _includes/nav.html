@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom {% if page.nav-short %}top-nav-short-permanent{% else %}top-nav-regular{% endif %}">
+<nav class="navbar navbar-light fixed-top navbar-custom {% if page.nav-short %}top-nav-short-permanent{% else %}top-nav-regular{% endif %}" style="flex-direction: column; align-items: flex-start;">
 
   {%- if site.title-img -%}
     <a class="navbar-brand navbar-brand-logo" href="{{ '/' | absolute_url }}">
@@ -8,16 +8,13 @@
     <a class="navbar-brand" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
   {%- endif -%}
 
-  <!-- Hamburger toggle button removed -->
-
-  <!-- Removed 'collapse' class to keep menu always visible -->
-  <div class="navbar-collapse" id="main-navbar">
-    <ul class="navbar-nav ml-auto">
+  <div class="navbar-collapse" id="main-navbar" style="width: 100%; margin-top: 0.5rem;">
+    <ul class="navbar-nav d-flex flex-row justify-content-start" style="width: 100%;">
       {%- for link in site.navbar-links -%}
         {%- if link[1].first %}
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown mx-2">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ link[0] }}</a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               {%- for childlink in link[1] -%}
                 {%- for linkparts in childlink %}
                   <a class="dropdown-item" href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a>
@@ -26,13 +23,14 @@
             </div>
           </li>
         {% else %}
-          <li class="nav-item">
+          <li class="nav-item mx-2">
             <a class="nav-link" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
           </li>
         {%- endif -%}
       {%- endfor -%}
+
       {% if site.post_search %}
-        <li class="nav-item">
+        <li class="nav-item mx-2">
           <a class="nav-link" id="nav-search-link" href="#" title="Search">
             <span id="nav-search-icon" class="fa fa-search"></span>
             <span id="nav-search-text">Search</span>
@@ -49,15 +47,4 @@
   {% endif %}
 
   {% if site.avatar and page.show-avatar != false %}
-    <div class="avatar-container">
-      <div class="avatar-img-border">
-        <a href="{{ '/' | absolute_url }}">
-          <img alt="Navigation bar avatar" class="avatar-img" src="{{ site.avatar | relative_url }}" />
-        </a>
-      </div>
-    </div>
-  {% endif %}
-
-</nav>
-
-{% include search.html %}
+    <div class="avatar-container"

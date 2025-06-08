@@ -1,10 +1,10 @@
 ---
 layout: default
-title: About Us
+title: 
 ---
 
 <div class="about-container">
-  <!-- <p class="team-head-text stylish-heading">About Us</p> -->
+  <p class="team-head-text stylish-heading">About Us</p>
 
   <section class="about-section">
     <h2 class="section-heading">The Project Management Club at DBS</h2>

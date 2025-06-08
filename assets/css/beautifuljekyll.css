@@ -1124,3 +1124,29 @@ pre {
     display: inline-block;
   }
 }
+
+#welcome-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #4158d0; /* your preferred overlay bg color */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+/* Optional: Override the about-container padding/margin so text centers nicely on full screen */
+#welcome-overlay .about-container {
+  margin: 0;  /* remove top margin */
+  padding: 0 1rem; /* optional, keep some side padding */
+  max-width: none; /* let it stretch full width */
+  text-align: center; /* center text horizontally */
+}
+
+/* The text styles are already from your existing .team-head-text and .stylish-heading */
+

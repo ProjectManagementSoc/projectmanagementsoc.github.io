@@ -12,6 +12,15 @@ subtitle:
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Management Club - DBS</title>
 
+<!-- Welcome page fade out animation text -->
+<div id="welcome-overlay" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="about-container">
+    <p class="team-head-text stylish-heading">Welcome to the Project Management Society</p>
+  </div>
+</div>
+
+
+
 <!-- FontAwesome CDN for icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
@@ -404,6 +413,19 @@ subtitle:
   }
 </style>
 </head>
+
+<script>
+  window.addEventListener('load', () => {
+    const overlay = document.getElementById('welcome-overlay');
+    setTimeout(() => {
+      overlay.style.opacity = '0';
+      overlay.addEventListener('transitionend', () => {
+        overlay.style.display = 'none';
+      });
+    }, 4000);
+  });
+</script>
+
 
 <body>
 <main class="container" role="main" aria-label="Project Management Club homepage">

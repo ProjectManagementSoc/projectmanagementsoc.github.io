@@ -441,6 +441,57 @@ subtitle:
 </script>
 
 
+<!-- Welcome Overlay -->
+<div id="welcome-overlay">
+  <div class="overlay-content">
+    <p class="team-head-text stylish-heading">Welcome to the Project Management Society</p>
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+      <div class="progress-text" id="progress-text">0%</div>
+    </div>
+  </div>
+</div>
+
+<!-- Script -->
+<script>
+  window.addEventListener('load', () => {
+    const overlay = document.getElementById('welcome-overlay');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+
+    if (!localStorage.getItem('welcomeShown')) {
+      overlay.style.display = 'flex';
+
+      let percent = 0;
+      const duration = 4000; // total duration (4 seconds)
+      const interval = 40;   // how frequently to update (ms)
+      const step = 100 / (duration / interval);
+
+      const progressInterval = setInterval(() => {
+        percent += step;
+        if (percent >= 100) {
+          percent = 100;
+          clearInterval(progressInterval);
+        }
+        progressBar.style.width = percent + '%';
+        progressText.textContent = Math.floor(percent) + '%';
+      }, interval);
+
+      setTimeout(() => {
+        overlay.style.opacity = '0';
+        overlay.addEventListener('transitionend', () => {
+          overlay.style.display = 'none';
+        });
+        localStorage.setItem('welcomeShown', 'true');
+      }, duration);
+    } else {
+      overlay.style.display = 'none';
+    }
+  });
+</script>
+
+
+
 
 <body>
 <main class="container" role="main" aria-label="Project Management Club homepage">

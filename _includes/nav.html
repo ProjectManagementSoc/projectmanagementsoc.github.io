@@ -1,37 +1,41 @@
-<nav class="navbar navbar-light fixed-top navbar-custom {% if page.nav-short %}top-nav-short-permanent{% else %}top-nav-regular{% endif %}" style="flex-direction: column; align-items: flex-start; padding-bottom: 0;">
+<nav class="navbar navbar-light fixed-top navbar-custom {% if page.nav-short %}top-nav-short-permanent{% else %}top-nav-regular{% endif %} flex-column align-items-start px-3 py-2">
 
+  <!-- Title or Logo -->
   {%- if site.title-img -%}
-    <a class="navbar-brand navbar-brand-logo" href="{{ '/' | absolute_url }}">
+    <a class="navbar-brand navbar-brand-logo mb-2" href="{{ '/' | absolute_url }}">
       <img alt="{{ site.title }} Logo" src="{{ site.title-img | relative_url }}" />
     </a>
   {%- elsif site.title -%}
-    <a class="navbar-brand" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
+    <a class="navbar-brand mb-2" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
   {%- endif -%}
 
-  <!-- Menu items in a full-width horizontal bar below the brand -->
-  <div class="navbar-collapse" id="main-navbar" style="width: 100%; margin-top: 0.5rem;">
-    <ul class="navbar-nav d-flex flex-row flex-wrap justify-content-start w-100 px-3">
+  <!-- Menu Bar (responsive and wraps on small screens) -->
+  <div class="w-100">
+    <ul class="navbar-nav d-flex flex-wrap flex-row justify-content-start w-100 gap-3">
+
       {%- for link in site.navbar-links -%}
         {%- if link[1].first %}
-          <li class="nav-item dropdown mx-2">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-{{ forloop.index }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ link[0] }}</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown-{{ forloop.index }}">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-{{ forloop.index }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ link[0] }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown-{{ forloop.index }}">
               {%- for childlink in link[1] -%}
                 {%- for linkparts in childlink %}
-                  <a class="dropdown-item" href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a>
+                  <li><a class="dropdown-item" href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a></li>
                 {%- endfor -%}
               {%- endfor %}
-            </div>
+            </ul>
           </li>
         {% else %}
-          <li class="nav-item mx-2">
+          <li class="nav-item">
             <a class="nav-link" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
           </li>
         {%- endif -%}
       {%- endfor -%}
 
       {% if site.post_search %}
-        <li class="nav-item mx-2">
+        <li class="nav-item">
           <a class="nav-link" id="nav-search-link" href="#" title="Search">
             <span id="nav-search-icon" class="fa fa-search"></span>
             <span id="nav-search-text">Search</span>
@@ -41,6 +45,7 @@
     </ul>
   </div>
 
+  <!-- Optional Extras -->
   {% if site.navbar-extra %}
     {% for file in site.navbar-extra %}
       {% include {{ file }} %}
@@ -48,7 +53,7 @@
   {% endif %}
 
   {% if site.avatar and page.show-avatar != false %}
-    <div class="avatar-container">
+    <div class="avatar-container mt-2">
       <div class="avatar-img-border">
         <a href="{{ '/' | absolute_url }}">
           <img alt="Navigation bar avatar" class="avatar-img" src="{{ site.avatar | relative_url }}" />

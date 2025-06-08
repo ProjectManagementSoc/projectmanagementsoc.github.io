@@ -1,18 +1,12 @@
 <style>
-  /* Base styles for nav-collapse: hidden but rendered */
+  /* Base styles for nav-collapse */
   .nav-collapse {
     opacity: 0;
     visibility: hidden;
     transition: opacity 2s ease, visibility 2s ease;
   }
 
-  /* When nav is expanded (mobile toggle) */
-  .navbar-custom.nav-expanded .nav-collapse {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* Desktop hover styles for >= 992px screens */
+  /* Desktop: fade in/out on hover */
   @media (min-width: 992px) {
     .navbar-custom:hover .nav-collapse {
       opacity: 1;
@@ -22,6 +16,32 @@
     .navbar-custom:not(:hover) .nav-collapse {
       opacity: 0;
       visibility: hidden;
+    }
+  }
+
+  /* Mobile: nav always visible if expanded, no fade */
+  @media (max-width: 991.98px) {
+    .nav-collapse {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transition: none !important;
+      /* You can also control display here if needed */
+    }
+
+    .navbar-custom:not(.nav-expanded) .nav-collapse {
+      /* Hide nav-collapse when not expanded */
+      visibility: hidden;
+      opacity: 0;
+      transition: none;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .navbar-custom.nav-expanded .nav-collapse {
+      visibility: visible;
+      opacity: 1;
+      height: auto;
+      overflow: visible;
     }
   }
 </style>

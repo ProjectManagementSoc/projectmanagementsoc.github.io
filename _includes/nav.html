@@ -1,19 +1,45 @@
-<nav class="navbar navbar-light fixed-top navbar-custom {% if page.nav-short %}top-nav-short-permanent{% else %}top-nav-regular{% endif %} px-4 py-3" style="background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); z-index: 1000;">
+<style>
+  /* Optional: show menu on hover on large screens */
+  @media (min-width: 992px) {
+    .navbar-custom:hover .nav-collapse {
+      display: block !important;
+    }
+  }
 
-  <!-- Title / Logo Section -->
-  <div class="container-fluid d-flex flex-column align-items-start">
-    {%- if site.title-img -%}
-      <a class="navbar-brand mb-2" href="{{ '/' | absolute_url }}">
-        <img alt="{{ site.title }} Logo" src="{{ site.title-img | relative_url }}" style="max-height: 40px;" />
-      </a>
-    {%- elsif site.title -%}
-      <a class="navbar-brand mb-2 fs-3 fw-bold" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
-    {%- endif -%}
+  /* Prevent animation flash */
+  .nav-collapse {
+    display: none;
+    transition: all 0.3s ease;
+  }
+
+  .nav-expanded .nav-collapse {
+    display: block !important;
+  }
+</style>
+
+<nav id="main-navbar" class="navbar navbar-light fixed-top navbar-custom px-4 py-3 flex-column align-items-start" style="background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); z-index: 1000;">
+
+  <!-- Title or Logo -->
+  <div class="container-fluid w-100 d-flex justify-content-between align-items-center">
+    <div>
+      {%- if site.title-img -%}
+        <a class="navbar-brand mb-0" href="{{ '/' | absolute_url }}">
+          <img alt="{{ site.title }} Logo" src="{{ site.title-img | relative_url }}" style="max-height: 40px;" />
+        </a>
+      {%- elsif site.title -%}
+        <a class="navbar-brand fs-3 fw-bold mb-0" href="{{ '/' | absolute_url }}">{{ site.title }}</a>
+      {%- endif -%}
+    </div>
+
+    <!-- Expand Button -->
+    <button id="expandToggle" class="btn btn-outline-secondary btn-sm ms-auto d-lg-none" aria-expanded="false" aria-controls="nav-collapse">
+      ☰ Menu
+    </button>
   </div>
 
-  <!-- Responsive Grid Menu -->
-  <div class="container-fluid">
-    <div class="row w-100 gx-3 gy-2 justify-content-center">
+  <!-- Collapsible Navigation Links -->
+  <div class="nav-collapse mt-3 w-100">
+    <div class="row gx-3 gy-2 justify-content-center">
       {%- for link in site.navbar-links -%}
         <div class="col-auto">
           {% if link[1].first %}
@@ -38,32 +64,25 @@
       {% if site.post_search %}
         <div class="col-auto">
           <a class="nav-link px-2" id="nav-search-link" href="#" title="Search">
-            <span id="nav-search-icon" class="fa fa-search"></span>
-            <span id="nav-search-text">Search</span>
+            <span class="fa fa-search"></span> Search
           </a>
         </div>
       {% endif %}
     </div>
   </div>
 
-  <!-- Optional Avatar -->
-  {% if site.avatar and page.show-avatar != false %}
-    <div class="avatar-container mt-3 ms-4">
-      <div class="avatar-img-border">
-        <a href="{{ '/' | absolute_url }}">
-          <img alt="Navigation bar avatar" class="avatar-img" src="{{ site.avatar | relative_url }}" />
-        </a>
-      </div>
-    </div>
-  {% endif %}
-
-  <!-- Optional Extras -->
-  {% if site.navbar-extra %}
-    {% for file in site.navbar-extra %}
-      {% include {{ file }} %}
-    {% endfor %}
-  {% endif %}
-
 </nav>
 
 {% include search.html %}
+
+<script>
+  // Toggle expand/collapse on button click
+  const expandButton = document.getElementById('expandToggle');
+  const navbar = document.getElementById('main-navbar');
+
+  expandButton?.addEventListener('click', () => {
+    navbar.classList.toggle('nav-expanded');
+    const expanded = navbar.classList.contains('nav-expanded');
+    expandButton.setAttribute('aria-expanded', expanded);
+  });
+</script>

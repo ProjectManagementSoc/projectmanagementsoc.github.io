@@ -1,58 +1,41 @@
 <style>
-  /* Base state: hidden and no display for desktop nav-collapse */
+  /* Base nav-collapse hidden by default */
   .nav-collapse {
     opacity: 0;
     visibility: hidden;
     transition: opacity 2s ease, visibility 2s ease;
   }
 
-  /* Desktop >=992px */
+  /* Desktop (≥992px) - show nav-collapse on hover with fade */
   @media (min-width: 992px) {
-    /* When hovering navbar: show nav-collapse */
     .navbar-custom:hover .nav-collapse {
-      display: block;       /* show container */
-      opacity: 1;           /* fade in */
+      display: block;
+      opacity: 1;
       visibility: visible;
       transition: opacity 2s ease, visibility 2s ease;
     }
 
-    /* When NOT hovered: hide nav-collapse and remove from layout */
     .navbar-custom:not(:hover) .nav-collapse {
-      display: none;        /* remove container */
+      display: none;
       opacity: 0;
       visibility: hidden;
-      transition: none;     /* no transition because display:none */
+      transition: none;
     }
   }
 
-  /* Mobile <992px */
+  /* Mobile (<992px) - original toggle behavior without fade */
   @media (max-width: 991.98px) {
     .nav-collapse {
-      /* Always visible or hidden by nav-expanded toggle */
-      opacity: 1 !important;
+      display: none; /* Hidden by default */
+      opacity: 1 !important;    /* Disable opacity fading on mobile */
       visibility: visible !important;
       transition: none !important;
-      display: block !important;
       height: auto !important;
       overflow: visible !important;
     }
 
-    .navbar-custom:not(.nav-expanded) .nav-collapse {
-      visibility: hidden;
-      opacity: 0;
-      height: 0;
-      overflow: hidden;
-      display: block !important;
-      transition: none !important;
-    }
-
     .navbar-custom.nav-expanded .nav-collapse {
-      visibility: visible;
-      opacity: 1;
-      height: auto;
-      overflow: visible;
-      display: block !important;
-      transition: none !important;
+      display: block !important; /* Show nav-collapse on toggle */
     }
   }
 </style>
@@ -116,7 +99,7 @@
 {% include search.html %}
 
 <script>
-  // Toggle expand/collapse on button click (for mobile)
+  // Mobile menu toggle button
   const expandButton = document.getElementById('expandToggle');
   const navbar = document.getElementById('main-navbar');
 
@@ -126,7 +109,7 @@
     expandButton.setAttribute('aria-expanded', expanded);
   });
 
-  // Optional: Close mobile nav on link click for better UX
+  // Optional: close mobile nav on link click for better UX
   document.querySelectorAll('.nav-collapse a').forEach(link => {
     link.addEventListener('click', () => {
       if (window.innerWidth < 992) {

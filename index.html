@@ -1,9 +1,7 @@
----
-<!--layout: home-->
+<!--layout: default-->
 layout: default
 subtitle: 
 ---
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +14,6 @@ subtitle:
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
 <style>
-  /* Reset & base */
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -43,21 +40,18 @@ subtitle:
     text-decoration: underline;
   }
 
-  /* Container max width & padding */
   .container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 1rem 1.5rem 3rem;
   }
 
-  /* Top section: Speech + Calendar side by side */
   .top-section {
     display: flex;
     gap: 2rem;
     margin: 3rem 0 4rem;
   }
 
-  /* President speech card */
   .president-speech-card {
     flex: 2;
     background: linear-gradient(135deg, #d2e0ff, #f0f6ff);
@@ -98,7 +92,6 @@ subtitle:
     color: #1a1a2e;
   }
 
-  /* Calendar card */
   .event-calendar-container {
     flex: 1;
     background: linear-gradient(135deg, #d2e0ff, #f0f6ff);
@@ -162,7 +155,6 @@ subtitle:
     color: white;
   }
 
-  /* Main content below - About, Mission, Values */
   .main-content {
     background: white;
     border-radius: 20px;
@@ -180,7 +172,6 @@ subtitle:
     padding-bottom: 0.3rem;
   }
 
-  /* About text */
   .about-text {
     font-size: 1.1rem;
     color: #3e4062;
@@ -189,7 +180,6 @@ subtitle:
     line-height: 1.7;
   }
 
-  /* Mission + Core Values section: flex 2 columns on desktop */
   .info-grid {
     display: flex;
     gap: 3.5rem;
@@ -224,12 +214,10 @@ subtitle:
     margin-bottom: 0.85rem;
   }
 
-  /* Highlighted bullet titles */
   .info-block ul li strong {
     color: #4158d0;
   }
 
-  /* Responsive styling */
   @media (max-width: 900px) {
     .top-section {
       flex-direction: column;
@@ -297,10 +285,8 @@ subtitle:
 
   <main class="container" role="main" aria-label="Project Management Club homepage">
 
-    <!-- Top section with speech + calendar -->
-    <section class="top-section" aria-label="President speech and upcoming events calendar">
-
-      <!-- President's speech card -->
+    <!-- Top section -->
+    <section class="top-section" aria-label="President speech and calendar">
       <article class="card president-speech-card" aria-labelledby="president-speech-title">
         <header class="speech-header">
           <h2 id="president-speech-title">President’s Speech</h2>
@@ -317,7 +303,6 @@ subtitle:
         </section>
       </article>
 
-      <!-- Calendar container -->
       <aside class="event-calendar-container" aria-label="Upcoming Club Events Calendar">
         <div class="event-calendar-header">
           <h3><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Upcoming Club Events</h3>
@@ -337,19 +322,21 @@ subtitle:
           </a>
         </div>
       </aside>
-
     </section>
 
-    <!-- Main content: About, Mission, Core Values -->
-    <section class="main-content" aria-label="About the Project Management Club">
+    <!-- NEW Welcome Section -->
+    <section class="main-content" aria-label="Welcome section">
+      <h2 class="section-title">Welcome to the Project Management Society</h2>
+    </section>
 
+    <!-- Main content -->
+    <section class="main-content" aria-label="About the Project Management Club">
       <h2 class="section-title">About the Club</h2>
       <p class="about-text">
         The Project Management Club at DBS aims to inspire and equip students with practical and professional project management knowledge. It will provide a platform for learning, leadership, networking, and collaboration through PMI’s resources and guidance, supporting students in applying project management in both personal and professional contexts.
       </p>
 
       <div class="info-grid">
-
         <article class="info-block" aria-labelledby="mission-title">
           <h3 id="mission-title">Mission Alignment</h3>
           <p>This club supports the mission and vision of the Project Management Institute (PMI):</p>
@@ -370,14 +357,9 @@ subtitle:
             <li><strong>Together We Can</strong> – Promote collaboration and shared purpose.</li>
           </ul>
         </article>
-
       </div>
-
     </section>
-
   </main>
 
 </body>
 </html>
-
-  

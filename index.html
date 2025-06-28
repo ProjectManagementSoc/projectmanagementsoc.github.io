@@ -537,7 +537,6 @@ subtitle:
   pointer-events: none;
 }
 
-/* Popup content box */
 .popup-content {
   position: relative;
   max-width: 90vw;
@@ -545,19 +544,21 @@ subtitle:
   background: #111;
   border-radius: 14px;
   box-shadow: 0 0 30px #1a73e8;
-  overflow: hidden;
+  overflow: auto; /* Enable scrolling if content is larger */
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 12px; /* Optional, add some padding around the image */
 }
 
-/* Poster image inside popup */
 .popup-content img {
   max-width: 100%;
-  max-height: 100%;
+  /* Remove max-height to allow vertical scrolling */
+  height: auto;
   display: block;
   border-radius: 12px;
 }
+
 
 /* Close button */
 #popup-close {

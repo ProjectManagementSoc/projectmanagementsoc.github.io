@@ -513,6 +513,74 @@ subtitle:
     margin-top: 1rem;
   }
 }
+/* Popup overlay - full screen dim background */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 20, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide popup when not active */
+.popup-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Popup content box */
+.popup-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: #111;
+  border-radius: 14px;
+  box-shadow: 0 0 30px #1a73e8;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Poster image inside popup */
+.popup-content img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Close button */
+#popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 2.4rem;
+  color: #f0f0f0;
+  cursor: pointer;
+  font-weight: 700;
+  line-height: 1;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+#popup-close:hover,
+#popup-close:focus {
+  color: #1a73e8;
+  outline: none;
+}
+
 
 </style>
 </head>
@@ -547,6 +615,16 @@ subtitle:
 
 
 <body>
+
+<div id="poster-popup" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="poster-title" aria-describedby="poster-desc">
+ <div class="popup-content">
+    <button id="popup-close" aria-label="Close Poster Popup">&times;</button>
+    <img src="assets/gallery/2July_webinar/1.jpg" alt="July Webinar Poster" />
+  </div>
+</div>
+
+
+
 <main class="container" role="main" aria-label="Project Management Club homepage">
   <section class="top-section" aria-label="President speech and upcoming events calendar">
     <article class="card president-speech-card" aria-labelledby="president-speech-title">
@@ -729,6 +807,35 @@ subtitle:
     createSlides();
     showSlides(slideIndex = 0);
   });
+window.addEventListener('load', () => {
+  const popup = document.getElementById('poster-popup');
+  const closeBtn = document.getElementById('popup-close');
+
+  // Show popup on page load
+  popup.classList.remove('hidden');
+
+  // Close popup on close button click
+  closeBtn.addEventListener('click', () => {
+    popup.classList.add('hidden');
+  });
+
+  // Optional: Close popup on overlay click (outside content)
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      popup.classList.add('hidden');
+    }
+  });
+
+  // Optional: Close popup with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
+      popup.classList.add('hidden');
+    }
+  });
+});
+
+
+
 </script>
 <!-- FUTURISTIC GALLERY SLIDESHOW END -->
 

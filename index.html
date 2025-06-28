@@ -585,6 +585,160 @@ subtitle:
     </aside>
   </section>
 
+
+
+<!-- FUTURISTIC GALLERY SLIDESHOW START -->
+<section id="gallery-slideshow" aria-label="Futuristic Image Gallery">
+  <div class="slideshow-container" id="slideshowContainer">
+    <!-- Slides will be inserted dynamically -->
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+  <div class="dots-container" id="dotsContainer"></div>
+</section>
+
+<style>
+  #gallery-slideshow {
+    margin: 3rem auto;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+  }
+
+  .slideshow-container {
+    position: relative;
+    height: 400px;
+  }
+
+  .slide {
+    display: none;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    filter: brightness(0.9) contrast(1.1) saturate(1.2);
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(1.03); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    padding: 1rem;
+    margin-top: -22px;
+    color: #00ffff;
+    font-weight: bold;
+    font-size: 2rem;
+    transition: 0.3s;
+    user-select: none;
+    z-index: 10;
+  }
+
+  .prev:hover, .next:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #0ff;
+  }
+
+  .prev { left: 15px; }
+  .next { right: 15px; }
+
+  .dots-container {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 14px;
+    width: 14px;
+    margin: 0 5px;
+    background-color: #888;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.4s ease;
+  }
+
+  .dot.active, .dot:hover {
+    background-color: #00ffff;
+    box-shadow: 0 0 10px #0ff;
+  }
+
+  @media screen and (max-width: 768px) {
+    .slideshow-container, .slide {
+      height: 250px;
+    }
+  }
+</style>
+
+<script>
+  const totalSlides = 6; // 🔁 Adjust this to match the total number of images
+  let slideIndex = 0;
+  let autoSlideTimeout;
+
+  function createSlides() {
+    const container = document.getElementById("slideshowContainer");
+    const dots = document.getElementById("dotsContainer");
+
+    for (let i = 1; i <= totalSlides; i++) {
+      const slide = document.createElement("div");
+      slide.className = "slide";
+      slide.style.backgroundImage = `url('assets/gallery/slideshow/${i}.jpg')`;
+      container.appendChild(slide);
+
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      dot.setAttribute("onclick", `currentSlide(${i})`);
+      dots.appendChild(dot);
+    }
+  }
+
+  function showSlides(n) {
+    const slides = document.getElementsByClassName("slide");
+    const dots = document.getElementsByClassName("dot");
+
+    if (n >= slides.length) slideIndex = 0;
+    if (n < 0) slideIndex = slides.length - 1;
+
+    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+    for (let i = 0; i < dots.length; i++) dots[i].classList.remove("active");
+
+    slides[slideIndex].style.display = "block";
+    dots[slideIndex].classList.add("active");
+
+    clearTimeout(autoSlideTimeout);
+    autoSlideTimeout = setTimeout(() => plusSlides(1), 5000); // 🔁 auto-slide every 5s
+  }
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function currentSlide(n) {
+    showSlides(slideIndex = n - 1);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    createSlides();
+    showSlides(slideIndex = 0);
+  });
+</script>
+<!-- FUTURISTIC GALLERY SLIDESHOW END -->
+
+
+
+
+
+
+
+
   <section class="main-content" aria-label="About the Project Management Club">
     <h2 class="section-title">About the Club</h2>
     <p class="about-text">

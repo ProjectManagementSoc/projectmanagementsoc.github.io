@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 
+title: About Us
 ---
 
 <div class="about-container">

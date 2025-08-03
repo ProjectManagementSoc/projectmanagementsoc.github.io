@@ -3,20 +3,59 @@ layout: default
 title: Join Us
 ---
 
-<input type="file" id="uploadInput" accept="image/*">
-<button onclick="uploadToDrive()">Upload</button>
+<section id="image-upload">
+  <h2>Upload Your Image</h2>
+
+  <div class="upload-box">
+    <input type="file" id="uploadInput" accept="image/*">
+    <button onclick="uploadToDrive()" class="upload-btn">Upload Image</button>
+
+    <div id="progress-container">
+      <div id="progress-bar"><span id="progress-text">0%</span></div>
+    </div>
+
+    <div id="upload-message"></div>
+  </div>
+</section>
 
 <script>
   async function uploadToDrive() {
     const input = document.getElementById('uploadInput');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const uploadMsg = document.getElementById('upload-message');
+
+    uploadMsg.textContent = '';
+    progressBar.style.width = '0%';
+    progressText.textContent = '0%';
+
     if (!input.files.length) {
       alert('Please select an image.');
       return;
     }
 
     const file = input.files[0];
+
+    if (file.size > 30 * 1024 * 1024) {
+      alert('File is too large! Maximum size allowed is 30 MB.');
+      return;
+    }
+
     const reader = new FileReader();
-    reader.onload = async function(e) {
+
+    reader.onprogress = function(e) {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressText.textContent = percent + '%';
+      }
+    };
+
+    reader.onloadstart = function() {
+      document.getElementById('progress-container').style.display = 'block';
+    };
+
+    reader.onloadend = async function(e) {
       const base64 = e.target.result.split(',')[1];
 
       const response = await fetch("https://script.google.com/macros/s/AKfycbybxyWiWsvNQTSGh4hWmLEh64aovUjmPJ96t1Uky05brAnn1kQaFTPZCSgp8zdVOwhR/exec", {
@@ -31,11 +70,18 @@ title: Join Us
 
       const result = await response.json();
       if (result.status === 'success') {
-        alert('Upload successful! File URL: ' + result.fileUrl);
+        progressBar.style.width = '100%';
+        progressText.textContent = '100%';
+        uploadMsg.innerHTML = `<div class="popup">✅ Upload successful! <br><a href="${result.fileUrl}" target="_blank">View File</a></div>`;
       } else {
-        alert('Upload failed: ' + result.message);
+        uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed: ${result.message}</div>`;
       }
+
+      setTimeout(() => {
+        document.getElementById('progress-container').style.display = 'none';
+      }, 4000);
     };
+
     reader.readAsDataURL(file);
   }
 </script>

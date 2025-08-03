@@ -20,89 +20,77 @@ title: Join Us
 
 <script>
   function uploadToDrive() {
-    const input = document.getElementById('uploadInput');
-    const progressBar = document.getElementById('progress-bar');
-    const progressText = document.getElementById('progress-text');
-    const uploadMsg = document.getElementById('upload-message');
+  const input = document.getElementById('uploadInput');
+  const progressBar = document.getElementById('progress-bar');
+  const progressText = document.getElementById('progress-text');
+  const uploadMsg = document.getElementById('upload-message');
 
-    uploadMsg.textContent = '';
-    progressBar.style.width = '0%';
-    progressText.textContent = '0%';
+  uploadMsg.textContent = '';
+  progressBar.style.width = '0%';
+  progressText.textContent = '0%';
 
-    if (!input.files.length) {
-      alert('Please select an image.');
-      return;
-    }
-
-    const file = input.files[0];
-
-    if (file.size > 30 * 1024 * 1024) {
-      alert('File is too large! Maximum size allowed is 30 MB.');
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onloadstart = function () {
-      document.getElementById('progress-container').style.display = 'block';
-    };
-
-    reader.onloadend = function (e) {
-      const base64 = e.target.result.split(',')[1];
-
-      const params = new URLSearchParams({
-        filename: file.name,
-        mimeType: file.type,
-        file: base64
-      });
-
-      const xhr = new XMLHttpRequest();
-
-      xhr.open("POST", "https://script.google.com/macros/s/AKfycbybxyWiWsvNQTSGh4hWmLEh64aovUjmPJ96t1Uky05brAnn1kQaFTPZCSgp8zdVOwhR/exec");
-
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-      xhr.upload.onprogress = function (event) {
-        if (event.lengthComputable) {
-          const percentComplete = Math.round((event.loaded / event.total) * 100);
-          progressBar.style.width = percentComplete + '%';
-          progressText.textContent = percentComplete + '%';
-        }
-      };
-
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          try {
-            const result = JSON.parse(xhr.responseText);
-            if (result.status === 'success') {
-              progressBar.style.width = '100%';
-              progressText.textContent = '100%';
-              uploadMsg.innerHTML = `<div class="popup">✅ Upload successful! <br><a href="${result.fileUrl}" target="_blank">View File</a></div>`;
-            } else {
-              uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed: ${result.message}</div>`;
-            }
-          } catch {
-            uploadMsg.innerHTML = `<div class="popup error">❌ Unexpected response from server</div>`;
-          }
-        } else {
-          uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed with status ${xhr.status}</div>`;
-        }
-
-        setTimeout(() => {
-          document.getElementById('progress-container').style.display = 'none';
-        }, 4000);
-      };
-
-      xhr.onerror = function () {
-        uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed due to a network error.</div>`;
-        document.getElementById('progress-container').style.display = 'none';
-      };
-
-      xhr.send(params.toString());
-    };
-
-    reader.readAsDataURL(file);
+  if (!input.files.length) {
+    alert('Please select an image.');
+    return;
   }
+
+  const file = input.files[0];
+
+  if (file.size > 30 * 1024 * 1024) {
+    alert('File is too large! Maximum size allowed is 30 MB.');
+    return;
+  }
+
+  document.getElementById('progress-container').style.display = 'block';
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('filename', file.name);
+  formData.append('mimeType', file.type);
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.open("POST", "https://script.google.com/macros/s/AKfycbybxyWiWsvNQTSGh4hWmLEh64aovUjmPJ96t1Uky05brAnn1kQaFTPZCSgp8zdVOwhR/exec");
+
+  xhr.upload.onprogress = function (event) {
+    if (event.lengthComputable) {
+      const percentComplete = Math.round((event.loaded / event.total) * 100);
+      progressBar.style.width = percentComplete + '%';
+      progressText.textContent = percentComplete + '%';
+    }
+  };
+
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      try {
+        const result = JSON.parse(xhr.responseText);
+        if (result.status === 'success') {
+          progressBar.style.width = '100%';
+          progressText.textContent = '100%';
+          uploadMsg.innerHTML = `<div class="popup">✅ Upload successful! <br><a href="${result.fileUrl}" target="_blank">View File</a></div>`;
+        } else {
+          uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed: ${result.message}</div>`;
+        }
+      } catch {
+        uploadMsg.innerHTML = `<div class="popup error">❌ Unexpected response from server</div>`;
+      }
+    } else {
+      uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed with status ${xhr.status}</div>`;
+    }
+
+    setTimeout(() => {
+      document.getElementById('progress-container').style.display = 'none';
+    }, 4000);
+  };
+
+  xhr.onerror = function () {
+    uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed due to a network error.</div>`;
+    document.getElementById('progress-container').style.display = 'none';
+  };
+
+  xhr.send(formData);
+}
+
 </script>
 
 <style>

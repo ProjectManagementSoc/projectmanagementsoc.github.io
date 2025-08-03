@@ -5,13 +5,17 @@ title: Join Us
 
 <h1>Upload an Image For the End Sem Bash Party</h1>
 
-<input type="file" id="fileInput" accept="image/*">
-<button onclick="uploadFile()">Upload</button>
+<input type="file" id="fileInput" accept="image/*" style="display: none;">
+<button id="uploadButton">Upload</button>
 
 <p id="status"></p>
 <p id="preview"></p>
 
 <script>
+  document.getElementById('uploadButton').addEventListener('click', () => {
+    document.getElementById('fileInput').click();
+  });
+
   async function uploadFile() {
     const fileInput = document.getElementById('fileInput');
     const status = document.getElementById('status');
@@ -57,3 +61,61 @@ title: Join Us
     reader.readAsDataURL(file);
   }
 </script>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f7fc;
+  }
+
+  h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  #fileInput {
+    display: none;
+  }
+
+  #uploadButton {
+    background: linear-gradient(45deg, #ff4e00, #ff7a00);
+    color: white;
+    border: 2px solid #ff4e00;
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 80, 0, 0.2);
+  }
+
+  #uploadButton:hover {
+    background: linear-gradient(45deg, #ff7a00, #ff4e00);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 80, 0, 0.3);
+  }
+
+  #uploadButton:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(255, 80, 0, 0.2);
+  }
+
+  #status {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+  }
+
+  #preview a {
+    font-size: 16px;
+    color: #ff4e00;
+    text-decoration: none;
+  }
+
+  #preview a:hover {
+    text-decoration: underline;
+  }
+</style>

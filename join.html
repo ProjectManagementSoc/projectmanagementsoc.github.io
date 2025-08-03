@@ -19,71 +19,74 @@ title: Join Us
 </section>
 
 <script>
-  async function uploadToDrive() {
-    const input = document.getElementById('uploadInput');
-    const progressBar = document.getElementById('progress-bar');
-    const progressText = document.getElementById('progress-text');
-    const uploadMsg = document.getElementById('upload-message');
+async function uploadToDrive() {
+  const input = document.getElementById('uploadInput');
+  const progressBar = document.getElementById('progress-bar');
+  const progressText = document.getElementById('progress-text');
+  const uploadMsg = document.getElementById('upload-message');
 
-    uploadMsg.textContent = '';
-    progressBar.style.width = '0%';
-    progressText.textContent = '0%';
+  uploadMsg.textContent = '';
+  progressBar.style.width = '0%';
+  progressText.textContent = '0%';
 
-    if (!input.files.length) {
-      alert('Please select an image.');
-      return;
-    }
+  if (!input.files.length) {
+    alert('Please select an image.');
+    return;
+  }
 
-    const file = input.files[0];
+  const file = input.files[0];
 
-    if (file.size > 30 * 1024 * 1024) {
-      alert('File is too large! Maximum size allowed is 30 MB.');
-      return;
-    }
+  if (file.size > 30 * 1024 * 1024) {
+    alert('File is too large! Maximum size allowed is 30 MB.');
+    return;
+  }
 
-    const reader = new FileReader();
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
 
-    reader.onprogress = function(e) {
-      if (e.lengthComputable) {
-        const percent = Math.round((e.loaded / e.total) * 100);
+  reader.onloadend = function(e) {
+    const base64 = e.target.result.split(',')[1];
+    const xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "https://script.google.com/macros/s/AKfycbybxyWiWsvNQTSGh4hWmLEh64aovUjmPJ96t1Uky05brAnn1kQaFTPZCSgp8zdVOwhR/exec", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.upload.onprogress = function(event) {
+      if (event.lengthComputable) {
+        const percent = Math.round((event.loaded / event.total) * 100);
         progressBar.style.width = percent + '%';
         progressText.textContent = percent + '%';
+        document.getElementById('progress-container').style.display = 'block';
       }
     };
 
-    reader.onloadstart = function() {
-      document.getElementById('progress-container').style.display = 'block';
-    };
+    xhr.onload = function() {
+      document.getElementById('progress-container').style.display = 'none';
 
-    reader.onloadend = async function(e) {
-      const base64 = e.target.result.split(',')[1];
-
-      const response = await fetch("https://script.google.com/macros/s/AKfycbybxyWiWsvNQTSGh4hWmLEh64aovUjmPJ96t1Uky05brAnn1kQaFTPZCSgp8zdVOwhR/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          filename: file.name,
-          mimeType: file.type,
-          file: base64
-        })
-      });
-
-      const result = await response.json();
-      if (result.status === 'success') {
-        progressBar.style.width = '100%';
-        progressText.textContent = '100%';
-        uploadMsg.innerHTML = `<div class="popup">✅ Upload successful! <br><a href="${result.fileUrl}" target="_blank">View File</a></div>`;
-      } else {
-        uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed: ${result.message}</div>`;
+      try {
+        const result = JSON.parse(xhr.responseText);
+        if (result.status === 'success') {
+          progressBar.style.width = '100%';
+          progressText.textContent = '100%';
+          uploadMsg.innerHTML = `<div class="popup">✅ Upload successful! <br><a href="${result.fileUrl}" target="_blank">View File</a></div>`;
+        } else {
+          uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed: ${result.message}</div>`;
+        }
+      } catch (e) {
+        uploadMsg.innerHTML = `<div class="popup error">❌ Unexpected error occurred.</div>`;
       }
-
-      setTimeout(() => {
-        document.getElementById('progress-container').style.display = 'none';
-      }, 4000);
     };
 
-    reader.readAsDataURL(file);
-  }
+    const body = new URLSearchParams({
+      filename: file.name,
+      mimeType: file.type,
+      file: base64
+    });
+
+    xhr.send(body);
+  };
+}
+
 </script>
 
 

@@ -2,13 +2,14 @@
 layout: default
 title: Join Us
 ---
-<!-- Place this inside your Jekyll page layout or page -->
+
+<!-- Image Upload Button: Futuristic Style -->
 <div class="upload-container">
-  <input type="file" id="fileUpload" accept="image/*" hidden>
-  <label for="fileUpload" class="upload-button">
-    <span id="uploadText">🚀 Upload Image</span>
+  <label for="file-upload" class="upload-button">
+    <span>🚀 Upload Image</span>
   </label>
-  <div id="uploadStatus" class="status-message"></div>
+  <input id="file-upload" type="file" accept="image/*" style="display: none;" />
+  <div id="upload-status"></div>
 </div>
 
 <style>
@@ -16,58 +17,81 @@ title: Join Us
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3rem;
+  margin: 50px auto;
   font-family: 'Orbitron', sans-serif;
+  max-width: 400px;
 }
 
 .upload-button {
-  background: rgba(0, 255, 255, 0.1);
-  border: 2px solid cyan;
-  color: cyan;
-  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #00f5a0, #00d9f5);
+  border: none;
+  color: #fff;
+  padding: 16px 30px;
+  font-size: 18px;
   border-radius: 12px;
   cursor: pointer;
+  box-shadow: 0 0 15px #00f5a0;
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 20px cyan;
 }
 
 .upload-button:hover {
-  background: cyan;
-  color: black;
-  box-shadow: 0 0 30px cyan;
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00f5a0;
 }
 
-.status-message {
-  margin-top: 1rem;
-  font-size: 1rem;
-  color: white;
+@keyframes pulse {
+  0% { box-shadow: 0 0 15px #00f5a0; }
+  50% { box-shadow: 0 0 25px #00d9f5; }
+  100% { box-shadow: 0 0 15px #00f5a0; }
+}
+
+#upload-status {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ffffffcc;
+  text-align: center;
 }
 </style>
 
 <script>
-function doPost(e) {
-  try {
-    var folder = DriveApp.getFolderById("1xkMyXcC7mHooYgYXiRlCTxnolZLTi_7L"); // Replace with a real folder ID
-    var blob = e.parameter.file; // Wrong! Will not work with multipart/form-data
+document.getElementById('file-upload').addEventListener('change', function () {
+  const file = this.files[0];
+  const statusDiv = document.getElementById('upload-status');
+  statusDiv.innerHTML = '';
 
-    // Fix: use this instead
-    var fileBlob = e.postData.getBlob();
-    var file = folder.createFile(fileBlob);
-    return ContentService
-      .createTextOutput(JSON.stringify({ url: file.getUrl() }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (f) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ error: f.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+  if (!file) return;
+
+  if (file.size > 15 * 1024 * 1024) {
+    statusDiv.innerHTML = "❌ File is too large. Max 15MB.";
+    return;
   }
-}
 
+  const formData = new FormData();
+  formData.append('file', file);
+
+  statusDiv.innerHTML = "⏳ Uploading...";
+
+  fetch("https://script.google.com/macros/s/AKfycbwvy1G0pZ33Roz9oRjzO_FtcVFC7m36Re2uAKqrInq-oUIOgZx3vmyc-bjiOp4ggX8xig/exec", {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data?.url) {
+      statusDiv.innerHTML = `✅ Uploaded! <a href="${data.url}" target="_blank" style="color: #00f5a0;">View Image</a>`;
+    } else {
+      throw new Error("Upload failed.");
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    statusDiv.innerHTML = "❌ Upload failed.";
+  });
+});
 </script>
 
-<!-- Optional: Include futuristic font -->
+<!-- Include Google Font for Futuristic Look -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">

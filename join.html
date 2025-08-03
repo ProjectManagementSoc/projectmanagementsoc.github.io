@@ -19,271 +19,135 @@ title: Join Us
 </section>
 
 <script>
-async function uploadToDrive() {
-  const input = document.getElementById('uploadInput');
-  const progressBar = document.getElementById('progress-bar');
-  const progressText = document.getElementById('progress-text');
-  const uploadMsg = document.getElementById('upload-message');
+  function uploadToDrive() {
+    const input = document.getElementById('uploadInput');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const uploadMsg = document.getElementById('upload-message');
 
-  uploadMsg.textContent = '';
-  progressBar.style.width = '0%';
-  progressText.textContent = '0%';
+    uploadMsg.textContent = '';
+    progressBar.style.width = '0%';
+    progressText.textContent = '0%';
 
-  if (!input.files.length) {
-    alert('Please select an image.');
-    return;
-  }
+    if (!input.files.length) {
+      alert('Please select an image.');
+      return;
+    }
 
-  const file = input.files[0];
+    const file = input.files[0];
 
-  if (file.size > 30 * 1024 * 1024) {
-    alert('File is too large! Maximum size allowed is 30 MB.');
-    return;
-  }
+    if (file.size > 30 * 1024 * 1024) {
+      alert('File is too large! Maximum size allowed is 30 MB.');
+      return;
+    }
 
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
+    const reader = new FileReader();
 
-  reader.onloadend = function(e) {
-    const base64 = e.target.result.split(',')[1];
-    const xhr = new XMLHttpRequest();
-
-    xhr.open("POST", "https://script.google.com/macros/s/AKfycbybxyWiWsvNQTSGh4hWmLEh64aovUjmPJ96t1Uky05brAnn1kQaFTPZCSgp8zdVOwhR/exec", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.upload.onprogress = function(event) {
-      if (event.lengthComputable) {
-        const percent = Math.round((event.loaded / event.total) * 100);
-        progressBar.style.width = percent + '%';
-        progressText.textContent = percent + '%';
-        document.getElementById('progress-container').style.display = 'block';
-      }
+    reader.onloadstart = function () {
+      document.getElementById('progress-container').style.display = 'block';
     };
 
-    xhr.onload = function() {
-      document.getElementById('progress-container').style.display = 'none';
+    reader.onloadend = function (e) {
+      const base64 = e.target.result.split(',')[1];
 
-      try {
-        const result = JSON.parse(xhr.responseText);
-        if (result.status === 'success') {
-          progressBar.style.width = '100%';
-          progressText.textContent = '100%';
-          uploadMsg.innerHTML = `<div class="popup">✅ Upload successful! <br><a href="${result.fileUrl}" target="_blank">View File</a></div>`;
-        } else {
-          uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed: ${result.message}</div>`;
+      const params = new URLSearchParams({
+        filename: file.name,
+        mimeType: file.type,
+        file: base64
+      });
+
+      const xhr = new XMLHttpRequest();
+
+      xhr.open("POST", "https://script.google.com/macros/s/AKfycbybxyWiWsvNQTSGh4hWmLEh64aovUjmPJ96t1Uky05brAnn1kQaFTPZCSgp8zdVOwhR/exec");
+
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+      xhr.upload.onprogress = function (event) {
+        if (event.lengthComputable) {
+          const percentComplete = Math.round((event.loaded / event.total) * 100);
+          progressBar.style.width = percentComplete + '%';
+          progressText.textContent = percentComplete + '%';
         }
-      } catch (e) {
-        uploadMsg.innerHTML = `<div class="popup error">❌ Unexpected error occurred.</div>`;
-      }
+      };
+
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          try {
+            const result = JSON.parse(xhr.responseText);
+            if (result.status === 'success') {
+              progressBar.style.width = '100%';
+              progressText.textContent = '100%';
+              uploadMsg.innerHTML = `<div class="popup">✅ Upload successful! <br><a href="${result.fileUrl}" target="_blank">View File</a></div>`;
+            } else {
+              uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed: ${result.message}</div>`;
+            }
+          } catch {
+            uploadMsg.innerHTML = `<div class="popup error">❌ Unexpected response from server</div>`;
+          }
+        } else {
+          uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed with status ${xhr.status}</div>`;
+        }
+
+        setTimeout(() => {
+          document.getElementById('progress-container').style.display = 'none';
+        }, 4000);
+      };
+
+      xhr.onerror = function () {
+        uploadMsg.innerHTML = `<div class="popup error">❌ Upload failed due to a network error.</div>`;
+        document.getElementById('progress-container').style.display = 'none';
+      };
+
+      xhr.send(params.toString());
     };
 
-    const body = new URLSearchParams({
-      filename: file.name,
-      mimeType: file.type,
-      file: base64
-    });
-
-    xhr.send(body);
-  };
-}
-
+    reader.readAsDataURL(file);
+  }
 </script>
 
-
 <style>
-
-#progress-container {
-  margin-top: 20px;
-  width: 100%;
-  height: 25px;
-  border-radius: 20px;
-  background: #1c1f2b;
-  overflow: hidden;
-  box-shadow: 0 0 10px #00f0ff33, 0 0 20px #00f0ff22 inset;
-  position: relative;
-  display: none;
-}
-
-#progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #00f0ff, #0ff, #00ffd5);
-  background-size: 200% 100%;
-  animation: glowProgress 2s linear infinite;
-  border-radius: 20px 0 0 20px;
-  transition: width 0.3s ease-in-out;
-  position: relative;
-}
-
-@keyframes glowProgress {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 200% 0%;
-  }
-}
-
-#progress-text {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-  font-weight: bold;
-  font-family: 'Courier New', monospace;
-  font-size: 0.9rem;
-  line-height: 25px;
-  text-shadow: 0 0 5px #00f0ff;
-}
-
-
-
-
-
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7fa;
-    margin: 0;
-    padding: 1rem;
-    color: #333;
-  }
-
-  .join-container {
-    max-width: 900px;
-    margin: 2rem auto 3rem;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 2.5rem 2rem;
-  }
-
-  h1 {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-weight: 700;
-    color: #2c3e50;
-  }
-
-  section {
-    margin-bottom: 3rem;
-  }
-
-  section h2 {
-    font-weight: 600;
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: #34495e;
-  }
-
-  form {
-    display: grid;
-    gap: 1.2rem;
-  }
-
-  label {
-    font-weight: 600;
-    color: #34495e;
-  }
-
-  input[type="text"],
-  input[type="email"],
-  textarea {
+  #progress-container {
+    margin-top: 20px;
     width: 100%;
-    padding: 0.7rem 1rem;
-    font-size: 1rem;
-    border: 1.5px solid #ccc;
-    border-radius: 8px;
-    font-family: inherit;
-    transition: border-color 0.25s ease;
+    height: 25px;
+    border-radius: 20px;
+    background: #1c1f2b;
+    overflow: hidden;
+    box-shadow: 0 0 10px #00f0ff33, 0 0 20px #00f0ff22 inset;
+    position: relative;
+    display: none;
   }
 
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  textarea:focus {
-    border-color: #039be5;
-    outline: none;
-    background-color: #eaf6ff;
+  #progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00f0ff, #0ff, #00ffd5);
+    background-size: 200% 100%;
+    animation: glowProgress 2s linear infinite;
+    border-radius: 20px 0 0 20px;
+    transition: width 0.3s ease-in-out;
+    position: relative;
   }
 
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-
-  button.submit-btn {
-    background-color: #039be5;
-    border: none;
-    color: white;
-    font-weight: 700;
-    font-size: 1.1rem;
-    padding: 0.75rem 1.6rem;
-    border-radius: 50px;
-    cursor: pointer;
-    width: max-content;
-    transition: background-color 0.3s ease;
-    justify-self: start;
-  }
-
-  button.submit-btn:hover {
-    background-color: #0277bd;
-  }
-
-  @media (max-width: 600px) {
-    .join-container {
-      padding: 2rem 1rem;
+  @keyframes glowProgress {
+    0% {
+      background-position: 0% 0%;
     }
-
-    h1 {
-      font-size: 1.9rem;
+    100% {
+      background-position: 200% 0%;
     }
+  }
 
-    section h2 {
-      font-size: 1.5rem;
-    }
+  #progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 25px;
+    text-shadow: 0 0 5px #00f0ff;
   }
 </style>
-
-<div class="join-container">
-  <h1>Join Us</h1>
-
-  <section id="join-club">
-    <h2>Join the Club</h2>
-    <form method="post" action="/join-club">
-      <label for="club-fullname">Full Name</label>
-      <input type="text" id="club-fullname" name="fullname" placeholder="Your full name" required>
-
-      <label for="club-studentid">Student ID</label>
-      <input type="text" id="club-studentid" name="studentid" placeholder="Your student ID" required>
-
-      <label for="club-email">Email Address</label>
-      <input type="email" id="club-email" name="email" placeholder="you@example.com" required>
-
-      <label for="club-interest">Why do you want to join?</label>
-      <textarea id="club-interest" name="interest" placeholder="Tell us a bit about your interest..." required></textarea>
-
-      <button type="submit" class="submit-btn">Join the Club</button>
-    </form>
-  </section>
-
-  <section id="volunteer">
-    <h2>Volunteer for the Society</h2>
-    <form method="post" action="/volunteer">
-      <label for="volunteer-fullname">Full Name</label>
-      <input type="text" id="volunteer-fullname" name="fullname" placeholder="Your full name" required>
-
-      <label for="volunteer-studentid">Student ID</label>
-      <input type="text" id="volunteer-studentid" name="studentid" placeholder="Your student ID" required>
-
-      <label for="volunteer-email">Email Address</label>
-      <input type="email" id="volunteer-email" name="email" placeholder="you@example.com" required>
-
-      <label for="volunteer-interest">Tell us how you'd like to contribute</label>
-      <textarea id="volunteer-interest" name="interest" placeholder="Your skills, availability, or ideas..." required></textarea>
-
-      <button type="submit" class="submit-btn">Become a Volunteer</button>
-    </form>
-  </section>
-</div>

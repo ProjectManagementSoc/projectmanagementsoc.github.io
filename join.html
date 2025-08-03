@@ -2,3 +2,85 @@
 layout: default
 title: Join Us
 ---
+<!-- Place this inside your Jekyll page layout or page -->
+<div class="upload-container">
+  <input type="file" id="fileUpload" accept="image/*" hidden>
+  <label for="fileUpload" class="upload-button">
+    <span id="uploadText">🚀 Upload Image</span>
+  </label>
+  <div id="uploadStatus" class="status-message"></div>
+</div>
+
+<style>
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.upload-button {
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid cyan;
+  color: cyan;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px cyan;
+}
+
+.upload-button:hover {
+  background: cyan;
+  color: black;
+  box-shadow: 0 0 30px cyan;
+}
+
+.status-message {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: white;
+}
+</style>
+
+<script>
+document.getElementById("fileUpload").addEventListener("change", async function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const status = document.getElementById("uploadStatus");
+  const uploadText = document.getElementById("uploadText");
+
+  uploadText.textContent = "Uploading...";
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbybxyWiWsvNQTSGh4hWmLEh64aovUjmPJ96t1Uky05brAnn1kQaFTPZCSgp8zdVOwhR/exec", {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+    if (result.url) {
+      status.innerHTML = `✅ Uploaded! <a href="${result.url}" target="_blank">View Image</a>`;
+    } else {
+      status.textContent = "❌ Upload failed. Try again.";
+    }
+  } catch (error) {
+    console.error("Upload error:", error);
+    status.textContent = "❌ An error occurred during upload.";
+  }
+
+  uploadText.textContent = "🚀 Upload Another";
+});
+</script>
+
+<!-- Optional: Include futuristic font -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">

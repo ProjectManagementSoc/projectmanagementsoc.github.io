@@ -5,17 +5,13 @@ title: Join Us
 
 <h1>Upload an Image For the End Sem Bash Party</h1>
 
-<input type="file" id="fileInput" accept="image/*" style="display: none;">
-<button id="uploadButton">Upload</button>
+<input type="file" id="fileInput" accept="image/*">
+<button onclick="uploadFile()">Upload</button>
 
-<p id="status" style="display: none;"></p>
+<p id="status"></p>
 <p id="preview"></p>
 
 <script>
-  document.getElementById('uploadButton').addEventListener('click', () => {
-    document.getElementById('fileInput').click();
-  });
-
   async function uploadFile() {
     const fileInput = document.getElementById('fileInput');
     const status = document.getElementById('status');
@@ -23,7 +19,6 @@ title: Join Us
 
     if (!fileInput.files.length) {
       status.innerText = 'Please select a file.';
-      status.style.display = 'block';  // Show the status
       return;
     }
 
@@ -40,7 +35,6 @@ title: Join Us
 
       try {
         status.innerText = 'Uploading...';
-        status.style.display = 'block';  // Show the status
 
         const response = await fetch('https://script.google.com/macros/s/AKfycbwvy1G0pZ33Roz9oRjzO_FtcVFC7m36Re2uAKqrInq-oUIOgZx3vmyc-bjiOp4ggX8xig/exec', {
           method: 'POST',
@@ -63,66 +57,3 @@ title: Join Us
     reader.readAsDataURL(file);
   }
 </script>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-    background-color: #f4f7fc;
-  }
-
-  h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-
-  #fileInput {
-    display: none;
-  }
-
-  #uploadButton {
-    background: linear-gradient(45deg, #ff4e00, #ff7a00);
-    color: white;
-    border: 2px solid #ff4e00;
-    padding: 15px 30px;
-    font-size: 16px;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(255, 80, 0, 0.2);
-  }
-
-  #uploadButton:hover {
-    background: linear-gradient(45deg, #ff7a00, #ff4e00);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(255, 80, 0, 0.3);
-  }
-
-  #uploadButton:active {
-    transform: translateY(0);
-    box-shadow: 0 5px 15px rgba(255, 80, 0, 0.2);
-  }
-
-  #status {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #333;
-    visibility: visible;
-    display: block;  /* Ensure status is shown by default */
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-  }
-
-  #preview a {
-    font-size: 16px;
-    color: #ff4e00;
-    text-decoration: none;
-  }
-
-  #preview a:hover {
-    text-decoration: underline;
-  }
-</style>

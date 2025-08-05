@@ -6,7 +6,7 @@ title: Join Us
 <h1>Upload an Image For the End Sem Bash Party</h1>
 
 <input type="file" id="fileInput" multiple accept="image/*">
-<button onclick="uploadFile()">Upload</button>
+<button id="uploadBtn" onclick="uploadFile()">Upload</button>
 
 <p id="status"></p>
 <p id="preview"></p>
@@ -16,6 +16,7 @@ title: Join Us
     const fileInput = document.getElementById('fileInput');
     const status = document.getElementById('status');
     const preview = document.getElementById('preview');
+    const uploadBtn = document.getElementById('uploadBtn');
 
     if (!fileInput.files.length) {
       status.innerText = 'Please select a file.';
@@ -24,6 +25,10 @@ title: Join Us
 
     status.innerText = 'Uploading...   This might take a few seconds...';
     preview.innerHTML = '';
+    uploadBtn.disabled = true; // Disable the button during upload
+
+    let completedUploads = 0;
+    const totalFiles = fileInput.files.length;
 
     for (const file of fileInput.files) {
       const reader = new FileReader();
@@ -60,12 +65,16 @@ title: Join Us
           const errorMsg = document.createElement('p');
           errorMsg.innerText = 'Error uploading file: ' + error.message;
           preview.appendChild(errorMsg);
+        } finally {
+          completedUploads++;
+          if (completedUploads === totalFiles) {
+            status.innerText = 'Upload process completed.';
+            uploadBtn.disabled = false; // Re-enable the button after all uploads finish
+          }
         }
       };
 
       reader.readAsDataURL(file);
-  
-    status.innerText = 'Uploading...   This might take a few seconds...';
+    }
   }
-}
 </script>

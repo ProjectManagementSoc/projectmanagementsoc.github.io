@@ -1,20 +1,16 @@
----
-layout: default
-title: Join Us
-subtitle: 
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Project Management Club - Contact Form</title>
+  <title>Project Management Club - Join Us</title>
 
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
   <style>
+    /* Base styles */
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -25,20 +21,6 @@ subtitle:
       background: #f7f9ff;
       color: #2b2b40;
       line-height: 1.6;
-    }
-
-    h1, h2, h3, h4 {
-      color: #1a1a2e;
-      margin-top: 0;
-    }
-
-    a {
-      color: #2f52e0;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
     }
 
     .container {
@@ -82,7 +64,6 @@ subtitle:
       border: 1.8px solid #d0d7ff;
       border-radius: 12px;
       font-size: 1.05rem;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #2b2b40;
       transition: border-color 0.3s ease;
     }
@@ -133,40 +114,97 @@ subtitle:
         width: 100%;
       }
     }
+
+    .success-message {
+      text-align: center;
+      padding: 1rem;
+      background-color: #e0ffe0;
+      color: #2d6a2d;
+      border: 1px solid #b2f5b2;
+      border-radius: 12px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .error-message {
+      text-align: center;
+      padding: 1rem;
+      background-color: #ffe0e0;
+      color: #b22222;
+      border: 1px solid #f5b2b2;
+      border-radius: 12px;
+      margin-top: 1rem;
+      display: none;
+    }
   </style>
 </head>
 
 <body>
   <main class="container" role="main" aria-label="Contact Form">
-    <h1 class="section-title">Contact Us</h1>
-    <form action="https://formspree.io/f/xandglke" method="POST" aria-describedby="form-note">
-      <label for="name">Full Name <sup aria-label="required">*</sup></label>
+    <h1 class="section-title">Join the Project Management Club</h1>
+
+    <form action="https://formspree.io/f/xandglke" method="POST">
+      <label for="name">Full Name <sup>*</sup></label>
       <input type="text" id="name" name="name" required placeholder="Your full name" />
 
-      <label for="studentNumber">Student Number<span>*</span></label>
-      <input type="text" id="studentNumber" name="studentNumber" pattern="\d{8}" title="Student number must be exactly 8 digits" required placeholder="Your 8 digit student number" maxlength="8" inputmode="numeric" />
+      <label for="studentNumber">Student Number <sup>*</sup></label>
+      <input type="text" id="studentNumber" name="studentNumber" pattern="\d{8}" title="Student number must be exactly 8 digits" required placeholder="8-digit student number" maxlength="8" inputmode="numeric" />
 
-      <label for="programBatch">Program and Batch<span>*</span></label>
+      <label for="programBatch">Program and Batch <sup>*</sup></label>
       <input type="text" id="programBatch" name="programBatch" required placeholder="e.g. MBA Project Management, Sept 2025" />
 
-      <label for="email">Email Address <sup aria-label="required">*</sup></label>
+      <label for="email">Email Address <sup>*</sup></label>
       <input type="email" id="email" name="email" required placeholder="studentNumber@dbs.ie" />
 
-      <label for="message">Message <sup aria-label="required">*</sup></label>
+      <label for="message">Why do you want to join? <sup>*</sup></label>
       <textarea id="message" name="message" required placeholder="Write your motivation..."></textarea>
 
-      <!-- Anti-spam honeypot -->
+      <!-- Optional Formspree HoneyPot -->
       <input type="text" name="_gotcha" style="display:none" />
 
-      <!-- Optional redirect after submit -->
-      <!-- <input type="hidden" name="_redirect" value="https://yourdomain.com/thank-you.html" /> -->
-
-      <button type="submit" aria-label="Send Message">Send Message</button>
-      <p id="form-note" class="form-note">Fields marked with <sup>*</sup> are required.</p>
+      <button type="submit">Send Message</button>
+      <p class="form-note">Fields marked with <sup>*</sup> are required.</p>
     </form>
+
+    <div class="success-message" id="successMessage">Thanks! Your message has been sent.</div>
+    <div class="error-message" id="errorMessage">Oops! Something went wrong. Please try again.</div>
   </main>
+
+  <script>
+    // Optional: Enhance UX with success/error messages
+    const form = document.querySelector('form');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          form.reset();
+          successMessage.style.display = 'block';
+          errorMessage.style.display = 'none';
+        } else {
+          throw new Error("Network response was not ok");
+        }
+      } catch (error) {
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>
+
 
 
 

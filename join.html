@@ -144,14 +144,18 @@ subtitle:
       <label for="name">Full Name <sup aria-label="required">*</sup></label>
       <input type="text" id="name" name="name" required placeholder="Your full name" />
 
-      <label for="email">Email Address <sup aria-label="required">*</sup></label>
-      <input type="email" id="email" name="email" required placeholder="you@example.com" />
 
-      <label for="subject">Subject</label>
-      <input type="text" id="subject" name="subject" placeholder="Subject of your message" />
+      <label for="studentNumber">Student Number<span>*</span></label>
+      <input type="text" id="studentNumber" name="studentNumber" pattern="\d{8}" title="Student number must be exactly 8 digits" required placeholder="Your 8 digit student number" maxlength="8" inputmode="numeric" />
+
+      <label for="programBatch">Program and Batch<span>*</span></label>
+      <input type="text" id="programBatch" name="programBatch" required placeholder="e.g. MBA Project Management, Sept 2025" />
+
+      <label for="email">Email Address <sup aria-label="required">*</sup></label>
+      <input type="email" id="email" name="email" required placeholder="studentNumber@dbs.ie" />
 
       <label for="message">Message <sup aria-label="required">*</sup></label>
-      <textarea id="message" name="message" required placeholder="Write your message here..."></textarea>
+      <textarea id="message" name="message" required placeholder="Write your motivation..."></textarea>
 
       <button type="submit" aria-label="Send Message">Send Message</button>
       <p id="form-note" class="form-note">Fields marked with <sup>*</sup> are required.</p>

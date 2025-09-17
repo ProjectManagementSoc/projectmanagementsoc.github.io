@@ -1,111 +1,97 @@
----
+<!--layout: form-->
 layout: default
-title: Join Us
-subtitle: Join as Event Coordinator
+subtitle: Contact Form
 ---
 
-<h1 class="page-title">Join Us - Event Coordinator Application</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Project Management Club - Contact Form</title>
 
-<form id="joinForm" method="POST" action="https://formspree.io/f/xandglke" autocomplete="off" novalidate>
-  <label for="name">Full Name<span>*</span></label>
-  <input type="text" id="name" name="name" required placeholder="Your full name" autocomplete="name" />
-
-  <label for="programBatch">Program and Batch<span>*</span></label>
-  <input type="text" id="programBatch" name="programBatch" required placeholder="e.g. MBA Project Management, Sept 2025" />
-
-  <label for="studentNumber">Student Number<span>*</span></label>
-  <input type="text" id="studentNumber" name="studentNumber" pattern="\d{8}" title="Student number must be exactly 8 digits" required placeholder="8 digit student number" maxlength="8" inputmode="numeric" />
-
-  <label for="email">Email Address<span>*</span></label>
-  <input type="email" id="email" name="email" required placeholder="studentNumber@dbs.ie" autocomplete="email" />
-
-  <label for="whyJoin">Why do you want to join?<span>*</span></label>
-  <textarea id="whyJoin" name="whyJoin" rows="5" required placeholder="Write your motivation here..."></textarea>
-
-  <button type="submit">Submit Application</button>
-</form>
-
-<div id="formMessage" aria-live="polite"></div>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap');
-
-  body, form {
-    font-family: 'Roboto', sans-serif;
-    background: #0f2027;  /* fallback for old browsers */
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #e0e6f8;
-    padding: 2rem 1rem;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  /* Reset & base */
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
 
-  h1.page-title {
-    font-family: 'Orbitron', sans-serif;
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f9ff;
+    color: #2b2b40;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 {
+    color: #1a1a2e;
+    margin-top: 0;
+  }
+
+  a {
+    color: #2f52e0;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 3rem auto 5rem;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(30, 60, 120, 0.06);
+  }
+
+  .section-title {
+    font-size: 2rem;
     font-weight: 700;
-    font-size: 2.8rem;
-    color: #00ffe7;
     margin-bottom: 2rem;
-    text-shadow: 0 0 8px #00ffe7, 0 0 20px #00ffe7;
+    color: #1a1a2e;
+    border-bottom: 3px solid #4158d0;
+    display: inline-block;
+    padding-bottom: 0.3rem;
+    text-align: center;
+    width: 100%;
   }
 
   form {
-    background: rgba(25, 30, 40, 0.9);
-    padding: 2.5rem 3rem;
-    border-radius: 20px;
-    box-shadow:
-      0 0 12px #00ffe7,
-      inset 0 0 12px #00ffe7;
-    max-width: 480px;
-    width: 100%;
-    transition: box-shadow 0.3s ease;
-  }
-
-  form:hover {
-    box-shadow:
-      0 0 20px #00fff5,
-      inset 0 0 20px #00fff5;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
   label {
-    display: block;
+    font-weight: 600;
+    color: #163172;
     margin-bottom: 0.5rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    color: #00d1c1;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-  }
-
-  label span {
-    color: #ff3860;
-    margin-left: 0.15rem;
+    display: block;
   }
 
   input[type="text"],
   input[type="email"],
   textarea {
-    background: #152f3e;
-    border: 2px solid #00d1c1;
+    padding: 0.75rem 1rem;
+    border: 1.8px solid #d0d7ff;
     border-radius: 12px;
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
-    color: #e0e6f8;
-    outline: none;
-    width: 100%;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    font-family: 'Roboto', sans-serif;
+    font-size: 1.05rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2b2b40;
+    transition: border-color 0.3s ease;
   }
 
   input[type="text"]:focus,
   input[type="email"]:focus,
   textarea:focus {
-    border-color: #00ffe7;
-    box-shadow: 0 0 10px #00ffe7;
-    background: #0a1b25;
+    border-color: #4158d0;
+    outline: none;
   }
 
   textarea {
@@ -113,107 +99,66 @@ subtitle: Join as Event Coordinator
     min-height: 120px;
   }
 
-  button {
-    margin-top: 1.8rem;
-    background: linear-gradient(90deg, #00ffe7 0%, #00d1c1 100%);
-    border: none;
-    color: #0f2027;
-    font-weight: 700;
-    font-size: 1.2rem;
-    padding: 0.9rem 0;
-    border-radius: 14px;
-    cursor: pointer;
-    width: 100%;
-    box-shadow:
-      0 0 12px #00ffe7;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 0.08em;
-  }
-
-  button:hover,
-  button:focus {
-    background: linear-gradient(90deg, #00d1c1 0%, #00ffe7 100%);
-    box-shadow:
-      0 0 20px #00fff5, 0 0 30px #00fff5;
-    outline: none;
-  }
-
-  #formMessage {
-    margin-top: 1.5rem;
+  button[type="submit"] {
+    background-color: #4158d0;
+    color: white;
     font-weight: 700;
     font-size: 1.1rem;
-    min-height: 1.3rem;
+    padding: 0.9rem 1.5rem;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+    width: 180px;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #2f40b5;
+  }
+
+  .form-note {
+    font-size: 0.9rem;
+    color: #6a7393;
     text-align: center;
-    letter-spacing: 0.05em;
   }
 
-  #formMessage.success {
-    color: #7effa9;
-    text-shadow: 0 0 8px #7effa9;
-  }
+  @media (max-width: 480px) {
+    .container {
+      margin: 2rem 1rem 3rem;
+      padding: 1.2rem 1rem;
+    }
 
-  #formMessage.error {
-    color: #ff3860;
-    text-shadow: 0 0 8px #ff3860;
+    button[type="submit"] {
+      width: 100%;
+    }
   }
 </style>
+</head>
 
-<script>
-  const form = document.getElementById('joinForm');
-  const messageDiv = document.getElementById('formMessage');
+<body>
+  <main class="container" role="main" aria-label="Contact Form">
+    <h1 class="section-title">Contact Us</h1>
+    <form action="#" method="POST" aria-describedby="form-note">
+      <label for="name">Full Name <sup aria-label="required">*</sup></label>
+      <input type="text" id="name" name="name" required placeholder="Your full name" />
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
+      <label for="email">Email Address <sup aria-label="required">*</sup></label>
+      <input type="email" id="email" name="email" required placeholder="you@example.com" />
 
-    const studentNumber = document.getElementById('studentNumber').value.trim();
-    const email = document.getElementById('email').value.trim();
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" name="subject" placeholder="Subject of your message" />
 
-    const studentNumberPattern = /^\d{8}$/;
-    if (!studentNumberPattern.test(studentNumber)) {
-      showMessage('Student number must be exactly 8 digits.', 'error');
-      return;
-    }
+      <label for="message">Message <sup aria-label="required">*</sup></label>
+      <textarea id="message" name="message" required placeholder="Write your message here..."></textarea>
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      showMessage('Please enter a valid email address.', 'error');
-      return;
-    }
+      <button type="submit" aria-label="Send Message">Send Message</button>
+      <p id="form-note" class="form-note">Fields marked with <sup>*</sup> are required.</p>
+    </form>
+  </main>
+</body>
+</html>
 
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        form.reset();
-        showMessage('Thank you! Your application has been submitted successfully.', 'success');
-      } else {
-        response.json().then(data => {
-          if (data && data.errors) {
-            showMessage(data.errors.map(error => error.message).join(", "), 'error');
-          } else {
-            showMessage('Oops! There was a problem submitting your form.', 'error');
-          }
-        });
-      }
-    })
-    .catch(() => {
-      showMessage('Oops! There was a problem submitting your form.', 'error');
-    });
-  });
-
-  function showMessage(msg, type) {
-    messageDiv.textContent = msg;
-    messageDiv.className = type;
-  }
-</script>
 
 
 

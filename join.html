@@ -6,63 +6,156 @@ subtitle: Join as Event Coordinator
 
 <h1 class="page-title">Join Us - Event Coordinator Application</h1>
 
-<form id="joinForm" method="POST" action="https://formspree.io/f/xandglke">
-  <label for="name">Full Name<span style="color: red;">*</span></label><br />
-  <input type="text" id="name" name="name" required placeholder="Your full name" /><br /><br />
+<form id="joinForm" method="POST" action="https://formspree.io/f/xandglke" autocomplete="off" novalidate>
+  <label for="name">Full Name<span>*</span></label>
+  <input type="text" id="name" name="name" required placeholder="Your full name" autocomplete="name" />
 
-  <label for="programBatch">Program and Batch<span style="color: red;">*</span></label><br />
-  <input type="text" id="programBatch" name="programBatch" required placeholder="e.g. MBA Project Management, Batch 2024" /><br /><br />
+  <label for="programBatch">Program and Batch<span>*</span></label>
+  <input type="text" id="programBatch" name="programBatch" required placeholder="e.g. MBA Project Management, Sept 2025" />
 
-  <label for="studentNumber">Student Number<span style="color: red;">*</span></label><br />
-  <input type="text" id="studentNumber" name="studentNumber" pattern="\d{8}" title="Student number must be exactly 8 digits" required placeholder="8 digit student number" /><br /><br />
+  <label for="studentNumber">Student Number<span>*</span></label>
+  <input type="text" id="studentNumber" name="studentNumber" pattern="\d{8}" title="Student number must be exactly 8 digits" required placeholder="8 digit student number" maxlength="8" inputmode="numeric" />
 
-  <label for="email">Email Address<span style="color: red;">*</span></label><br />
-  <input type="email" id="email" name="email" required placeholder="you@example.com" /><br /><br />
+  <label for="email">Email Address<span>*</span></label>
+  <input type="email" id="email" name="email" required placeholder="studentNumber@dbs.ie" autocomplete="email" />
 
-  <label for="whyJoin">Why do you want to join?<span style="color: red;">*</span></label><br />
-  <textarea id="whyJoin" name="whyJoin" rows="5" required placeholder="Write your motivation here..."></textarea><br /><br />
+  <label for="whyJoin">Why do you want to join?<span>*</span></label>
+  <textarea id="whyJoin" name="whyJoin" rows="5" required placeholder="Write your motivation here..."></textarea>
 
   <button type="submit">Submit Application</button>
 </form>
 
-<div id="formMessage" style="max-width: 480px; margin: 1rem auto; font-weight: 600; text-align: center;"></div>
+<div id="formMessage" aria-live="polite"></div>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap');
+
+  body, form {
+    font-family: 'Roboto', sans-serif;
+    background: #0f2027;  /* fallback for old browsers */
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #e0e6f8;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1.page-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 2.8rem;
+    color: #00ffe7;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 8px #00ffe7, 0 0 20px #00ffe7;
+  }
+
   form {
+    background: rgba(25, 30, 40, 0.9);
+    padding: 2.5rem 3rem;
+    border-radius: 20px;
+    box-shadow:
+      0 0 12px #00ffe7,
+      inset 0 0 12px #00ffe7;
     max-width: 480px;
-    margin: 2rem auto;
-    font-family: Arial, sans-serif;
-  }
-  label {
-    font-weight: 600;
-  }
-  input, textarea {
     width: 100%;
-    padding: 0.5rem 0.6rem;
-    margin-top: 0.3rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    transition: box-shadow 0.3s ease;
+  }
+
+  form:hover {
+    box-shadow:
+      0 0 20px #00fff5,
+      inset 0 0 20px #00fff5;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #00d1c1;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  label span {
+    color: #ff3860;
+    margin-left: 0.15rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    background: #152f3e;
+    border: 2px solid #00d1c1;
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
     font-size: 1rem;
+    color: #e0e6f8;
+    outline: none;
+    width: 100%;
     box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Roboto', sans-serif;
   }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    border-color: #00ffe7;
+    box-shadow: 0 0 10px #00ffe7;
+    background: #0a1b25;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
   button {
-    background-color: #3a3a6e;
-    color: white;
+    margin-top: 1.8rem;
+    background: linear-gradient(90deg, #00ffe7 0%, #00d1c1 100%);
     border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 8px;
+    color: #0f2027;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 0.9rem 0;
+    border-radius: 14px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: 100%;
+    box-shadow:
+      0 0 12px #00ffe7;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.08em;
   }
-  button:hover {
-    background-color: #2e2e55;
+
+  button:hover,
+  button:focus {
+    background: linear-gradient(90deg, #00d1c1 0%, #00ffe7 100%);
+    box-shadow:
+      0 0 20px #00fff5, 0 0 30px #00fff5;
+    outline: none;
   }
+
+  #formMessage {
+    margin-top: 1.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    min-height: 1.3rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
   #formMessage.success {
-    color: green;
+    color: #7effa9;
+    text-shadow: 0 0 8px #7effa9;
   }
+
   #formMessage.error {
-    color: red;
+    color: #ff3860;
+    text-shadow: 0 0 8px #ff3860;
   }
 </style>
 
@@ -73,8 +166,8 @@ subtitle: Join as Event Coordinator
   form.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const studentNumber = document.getElementById('studentNumber').value;
-    const email = document.getElementById('email').value;
+    const studentNumber = document.getElementById('studentNumber').value.trim();
+    const email = document.getElementById('email').value.trim();
 
     const studentNumberPattern = /^\d{8}$/;
     if (!studentNumberPattern.test(studentNumber)) {
@@ -88,10 +181,8 @@ subtitle: Join as Event Coordinator
       return;
     }
 
-    // Prepare form data
     const formData = new FormData(form);
 
-    // Submit form data using fetch to Formspree
     fetch(form.action, {
       method: 'POST',
       body: formData,
@@ -123,6 +214,7 @@ subtitle: Join as Event Coordinator
     messageDiv.className = type;
   }
 </script>
+
 
 
 <!-- <h1>Upload an Image For the End Sem Bash Party</h1>

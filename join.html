@@ -1,209 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Project Management Club - Join Us</title>
+---
+layout: default
+title: Join Us
+---
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<main class="container" role="main" aria-label="Join Form">
+  <h1 class="section-title">Join the Project Management Club</h1>
 
-  <style>
-    /* Base styles */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
+  <form action="https://formspree.io/f/xandglke" method="POST" id="join-form">
+    <label for="name">Full Name <sup>*</sup></label>
+    <input type="text" id="name" name="name" required placeholder="Your full name" />
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f7f9ff;
-      color: #2b2b40;
-      line-height: 1.6;
-    }
+    <label for="studentNumber">Student Number <sup>*</sup></label>
+    <input type="text" id="studentNumber" name="studentNumber" pattern="\d{8}" title="Student number must be exactly 8 digits" required placeholder="8-digit student number" maxlength="8" inputmode="numeric" />
 
-    .container {
-      max-width: 700px;
-      margin: 3rem auto 5rem;
-      padding: 1rem 1.5rem;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(30, 60, 120, 0.06);
-    }
+    <label for="programBatch">Program and Batch <sup>*</sup></label>
+    <input type="text" id="programBatch" name="programBatch" required placeholder="e.g. MBA Project Management, Sept 2025" />
 
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
-      color: #1a1a2e;
-      border-bottom: 3px solid #4158d0;
-      display: inline-block;
-      padding-bottom: 0.3rem;
-      text-align: center;
-      width: 100%;
-    }
+    <label for="email">Email Address <sup>*</sup></label>
+    <input type="email" id="email" name="email" required placeholder="studentNumber@dbs.ie" />
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
+    <label for="message">Why do you want to join? <sup>*</sup></label>
+    <textarea id="message" name="message" required placeholder="Write your motivation..."></textarea>
 
-    label {
-      font-weight: 600;
-      color: #163172;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
+    <!-- spam trap -->
+    <input type="text" name="_gotcha" style="display:none" />
 
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      padding: 0.75rem 1rem;
-      border: 1.8px solid #d0d7ff;
-      border-radius: 12px;
-      font-size: 1.05rem;
-      color: #2b2b40;
-      transition: border-color 0.3s ease;
-    }
+    <button type="submit">Send Message</button>
+    <p class="form-note">Fields marked with <sup>*</sup> are required.</p>
+  </form>
 
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    textarea:focus {
-      border-color: #4158d0;
-      outline: none;
-    }
+  <div class="success-message" id="successMessage" style="display:none;">
+    ✅ Thanks! Your message has been sent.
+  </div>
+  <div class="error-message" id="errorMessage" style="display:none;">
+    ❌ Oops! Something went wrong. Please try again.
+  </div>
+</main>
 
-    textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
+<style>
+  .container {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(30, 60, 120, 0.06);
+  }
 
-    button[type="submit"] {
-      background-color: #4158d0;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      padding: 0.9rem 1.5rem;
-      border: none;
-      border-radius: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      align-self: center;
-      width: 180px;
-    }
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #1a1a2e;
+  }
 
-    button[type="submit"]:hover {
-      background-color: #2f40b5;
-    }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
 
-    .form-note {
-      font-size: 0.9rem;
-      color: #6a7393;
-      text-align: center;
-    }
+  label {
+    font-weight: bold;
+    color: #333;
+  }
 
-    @media (max-width: 480px) {
-      .container {
-        margin: 2rem 1rem 3rem;
-        padding: 1.2rem 1rem;
+  input, textarea {
+    padding: 0.75rem;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  button[type="submit"] {
+    background-color: #4158d0;
+    color: #fff;
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #2f40b5;
+  }
+
+  .form-note {
+    font-size: 0.9rem;
+    text-align: center;
+    color: #777;
+  }
+
+  .success-message,
+  .error-message {
+    margin-top: 1rem;
+    font-size: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .success-message {
+    background: #e8ffe8;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+  }
+
+  .error-message {
+    background: #ffe8e8;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+  }
+</style>
+
+<script>
+  document.getElementById("join-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    try {
+      const res = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.reset();
+        document.getElementById("successMessage").style.display = "block";
+        document.getElementById("errorMessage").style.display = "none";
+      } else {
+        throw new Error("Submission failed");
       }
-
-      button[type="submit"] {
-        width: 100%;
-      }
+    } catch (err) {
+      document.getElementById("successMessage").style.display = "none";
+      document.getElementById("errorMessage").style.display = "block";
     }
-
-    .success-message {
-      text-align: center;
-      padding: 1rem;
-      background-color: #e0ffe0;
-      color: #2d6a2d;
-      border: 1px solid #b2f5b2;
-      border-radius: 12px;
-      margin-top: 1rem;
-      display: none;
-    }
-
-    .error-message {
-      text-align: center;
-      padding: 1rem;
-      background-color: #ffe0e0;
-      color: #b22222;
-      border: 1px solid #f5b2b2;
-      border-radius: 12px;
-      margin-top: 1rem;
-      display: none;
-    }
-  </style>
-</head>
-
-<body>
-  <main class="container" role="main" aria-label="Contact Form">
-    <h1 class="section-title">Join the Project Management Club</h1>
-
-    <form action="https://formspree.io/f/xandglke" method="POST">
-      <label for="name">Full Name <sup>*</sup></label>
-      <input type="text" id="name" name="name" required placeholder="Your full name" />
-
-      <label for="studentNumber">Student Number <sup>*</sup></label>
-      <input type="text" id="studentNumber" name="studentNumber" pattern="\d{8}" title="Student number must be exactly 8 digits" required placeholder="8-digit student number" maxlength="8" inputmode="numeric" />
-
-      <label for="programBatch">Program and Batch <sup>*</sup></label>
-      <input type="text" id="programBatch" name="programBatch" required placeholder="e.g. MBA Project Management, Sept 2025" />
-
-      <label for="email">Email Address <sup>*</sup></label>
-      <input type="email" id="email" name="email" required placeholder="studentNumber@dbs.ie" />
-
-      <label for="message">Why do you want to join? <sup>*</sup></label>
-      <textarea id="message" name="message" required placeholder="Write your motivation..."></textarea>
-
-      <!-- Optional Formspree HoneyPot -->
-      <input type="text" name="_gotcha" style="display:none" />
-
-      <button type="submit">Send Message</button>
-      <p class="form-note">Fields marked with <sup>*</sup> are required.</p>
-    </form>
-
-    <div class="success-message" id="successMessage">Thanks! Your message has been sent.</div>
-    <div class="error-message" id="errorMessage">Oops! Something went wrong. Please try again.</div>
-  </main>
-
-  <script>
-    // Optional: Enhance UX with success/error messages
-    const form = document.querySelector('form');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          form.reset();
-          successMessage.style.display = 'block';
-          errorMessage.style.display = 'none';
-        } else {
-          throw new Error("Network response was not ok");
-        }
-      } catch (error) {
-        successMessage.style.display = 'none';
-        errorMessage.style.display = 'block';
-      }
-    });
-  </script>
-</body>
-</html>
+  });
+</script>
 
 
 
